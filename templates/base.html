@@ -271,12 +271,12 @@
         </a>
     </div>
     {% endif %}
-    <div id="ui stackable grid container">
+    <div>
         <noscript>
             <div id="noscript">{{ _('This site works best with JavaScript enabled.') }}</div>
         </noscript>
         <br>
-        <main id="content">
+        <main id="content" class="ui stackable grid container">
             {% block title_row %}
             <h2 style="color:#393630; display:inline">
                 {% block content_title %}
