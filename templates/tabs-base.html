@@ -6,8 +6,8 @@
 {%- if url %}</a>{% endif -%}
 {% endmacro %}
 
-<div class="ui buttons">
-    <h2>{{ content_title or title }}</h2>
+<h2 style="float: left">{{ content_title or title }}</h2>
+<div class="ui buttons" style="float: right">
     {% block post_tab_spacer %}{% endblock %}
     {% block tabs %}{% endblock %}
 </div>
