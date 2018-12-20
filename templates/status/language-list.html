@@ -1,22 +1,5 @@
 {% extends "base.html" %}
 {% block media %}
-    <style>
-        .table td.language {
-            white-space: nowrap;
-        }
-
-        .table td.info .content-description {
-            margin: -1em 1em -1em 1em;
-        }
-
-        td.info {
-            width: 100%;
-        }
-
-        .table td {
-            text-align: left;
-        }
-    </style>
 {% endblock %}
 
 {% block title_ruler %}{% endblock %}
@@ -27,7 +10,7 @@
 {% endblock %}
 
 {% block body %}
-    <table class="table">
+    <table class="ui celled table">
         <thead>
         <tr>
             <th>{{ _('ID') }}</th>
