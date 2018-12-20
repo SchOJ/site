@@ -7,8 +7,18 @@
     {% include "status/status-tabs.html" %}
 {% endblock %}
 
+{% block media %}
+.version-latest {
+    background-color: #B5CC18
+}
+
+.version-outdated {
+    background-color: #D01919
+}
+{% endblock %}
+
 {% block body %}
-    <table id="judge-versions" class="table">
+    <table id="judge-versions" class="ui celled table">
         <tr>
             <th></th>
             {% for judge in judges %}
