@@ -10,10 +10,6 @@
     </noscript>
     {% if not request.in_contest %}
         <style>
-            #problem-table th {
-                padding: 0;
-            }
-
             a.hot-problem-link:hover > .hot-problem-count {
                 visibility: visible;
             }
@@ -170,38 +166,21 @@
 {% block body %}
     <div id="common-content">
         {% block before_table %}{% endblock %}
-        {% if not request.in_contest %}
-            <div id="content-right" class="problems">
-                <div class="info-float">
-                    {% include "problem/search-form.html" %}
-                    {% if hot_problems %}
-                        <div class="sidebox">
-                            <h3>{{ _('Hot problems') }} <i class="fa fa-fire"></i></h3>
-                            <div class="sidebox-content">
-                                <ul class="problem-list">{% for problem in hot_problems %}
-                                    <li><a href="{{ url('problem_detail', problem.code) }}" class="hot-problem-link">
-                                        {{ problem.name }}
-                                    </a></li>
-                                {% endfor %}</ul>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        {% endif %}
-        <div id="content-left" class="problems">
+        <div class="ui grid">
+
+        <div class="twelve wide column problems">
             {% if page_obj.num_pages > 1 %}
                 <div style="margin-bottom: 7px; margin-top: 3px;">
                     {% include "list-pages.html" %}
                 </div>
             {% endif %}
 
-            <table id="problem-table" class="table striped">
+            <table id="problem-table" class="ui celled table">
                 <thead>
                 <tr>
                     {% if request.in_contest %}
                         {% if request.user.is_authenticated %}
-                            <th class="solved"><i class="fa fa-check"></i></th>
+                            <th class="solved"><i class="icon check"></i></th>
                         {% endif %}
                         <th class="problem">{{ _('Problem') }}</th>
                         <th class="category">{{ _('Category') }}</th>
@@ -213,7 +192,7 @@
                     {% else %}
                         {% if request.user.is_authenticated %}
                             <th class="solved">
-                                <a href="{{ sort_links.solved }}"><i class="fa fa-check"></i>{{ sort_order.solved }}
+                                <a href="{{ sort_links.solved }}"><i class="icon check"></i>{{ sort_order.solved }}
                                 </a>
                             </th>
                         {% endif %}
@@ -248,9 +227,9 @@
                                 <td solved="1">
                                     <a href="{{ url('user_submissions', problem.code, request.user.username) }}">
                                         {% if problem.is_public or request.in_contest %}
-                                            <i class="solved-problem-color fa fa-check-circle"></i>
+                                            <i class="icon solved-problem-color check-circle"></i>
                                         {% else %}
-                                            <i class="solved-problem-color fa fa-lock"></i>
+                                            <i class="icon solved-problem-color lock"></i>
                                         {% endif %}
                                     </a>
                                 </td>
@@ -258,18 +237,18 @@
                                 <td solved="0">
                                     <a href="{{ url('user_submissions', problem.code, request.user.username) }}">
                                         {% if problem.is_public or request.in_contest %}
-                                            <i class="attempted-problem-color fa fa-minus-circle"></i>
+                                            <i class="icon attempted-problem-color minus-circle"></i>
                                         {% else %}
-                                            <i class="attempted-problem-color fa fa-lock"></i>
+                                            <i class="icon attempted-problem-color lock"></i>
                                         {% endif %}
                                     </a>
                                 </td>
                             {% else %}
                                 <td solved="-1">
                                     {% if problem.is_public or request.in_contest %}
-                                        <i class="unsolved-problem-color fa fa-minus-circle"></i>
+                                        <i class="icon unsolved-problem-color minus-circle"></i>
                                     {% else %}
-                                        <i class="unsolved-problem-color fa fa-lock"></i>
+                                        <i class="icon unsolved-problem-color lock"></i>
                                     {% endif %}
                                 </td>
                             {% endif %}
@@ -306,6 +285,38 @@
                 <div style="margin-top:10px;">{% include "list-pages.html" %}</div>
             {% endif %}
         </div>
+
+        {% if not request.in_contest %}
+        <div class="four wide column problems">
+                <div class="info-float">
+                    {% include "problem/search-form.html" %}
+                    {% if hot_problems %}
+                    <div class="ui card">
+                            <div class="content">
+                                <div class="header">{{ _('Hot problems') }} <i class="icon fire"></i></div>
+                            </div>
+                            <div class="content">
+                                <div class="ui small feed">
+                                    {% for problem in hot_problems %}
+                                    <div class="event">
+                                        <div class="content">
+                                            <div class="summary">
+                                                    <a href="{{ url('problem_detail', problem.code) }}" class="hot-problem-link">
+                                                            {{ problem.name }}
+                                                        </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
     </div>
     <br>
 {% endblock %}
