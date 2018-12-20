@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="{{ FONTAWESOME_CSS }}">
     {% endif %}
     {% compress css %}
-    <link rel="stylesheet" href="{{ static('style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ static('style.css') }}"> -->
     {% if PYGMENT_THEME %}
     <link rel="stylesheet" href="{{ static(PYGMENT_THEME) }}">
     {% endif %}{% if INLINE_FONTAWESOME %}
@@ -271,7 +271,7 @@
         </a>
     </div>
     {% endif %}
-    <div id="page-container">
+    <div id="ui stackable grid container">
         <noscript>
             <div id="noscript">{{ _('This site works best with JavaScript enabled.') }}</div>
         </noscript>
