@@ -1,4 +1,4 @@
-<tr>
+<thead><tr>
     <th>{{ _('Judge') }}</th>
     {% if see_all_judges %}
         <th>{{ _('Online') }}</th>
@@ -7,7 +7,7 @@
     <th>{{ _('Ping') }}</th>
     <th>{{ _('Load') }}</th>
     <th>{{ _('Runtimes') }}</th>
-</tr>
+</tr></thead>
 
 {% for judge in judges %}
     <tr>
