@@ -88,8 +88,9 @@
         </ul>
     </div>
     <div id="blog-container">
-        <div class="blog-content sidebox">
-            <h3>{{ _('News') }} <i class="fa fa-terminal"></i></h3>
+        <div class="ui grid">
+            <div class="twelve wide column">
+            <h3>{{ _('News') }} <i class="icon terminal"></i></h3>
             <div class="sidebox-content">
                 {% for post in posts %}
                     <section class="{% if post.sticky %}sticky {% endif %}post">
@@ -122,12 +123,12 @@
             {% if page_obj.num_pages > 1 %}
                 <div style="margin-bottom:10px;margin-top:10px">{% include "list-pages.html" %}</div>
             {% endif %}
-        </div>
+            </div>
 
-        <div class="blog-sidebar">
+            <div class="four wide column">
             {% if request.in_contest and request.participation.contest.use_clarifications %}
                 <div class="blog-sidebox sidebox">
-                    <h3>{{ _('Clarifications') }} <i class="fa fa-question-circle"></i></h3>
+                    <h3>{{ _('Clarifications') }} <i class="icon question-circle"></i></h3>
                     <div class="sidebox-content">
                         {% if has_clarifications %}
                             <ul>
@@ -262,6 +263,7 @@
                     </div>
                 </div>
             {% endif %}
+            </div>
         </div>
     </div>
     {% block after_posts %}{% endblock %}
