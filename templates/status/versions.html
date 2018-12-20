@@ -7,17 +7,28 @@
     {% include "status/status-tabs.html" %}
 {% endblock %}
 
+{% block media %}
+<style>
+    .version-latest {
+    background-color: #B5CC18
+    }
+    .version-outdated {
+    background-color: #D01919
+    }
+</style>
+{% endblock %}
+
 {% block body %}
-    <table id="judge-versions" class="table">
+    <table id="judge-versions" class="ui celled table">
         <tr>
             <th></th>
             {% for judge in judges %}
-                <th>{{ judge }}</th>
+                <td><b>{{ judge }}</b></td>
             {% endfor %}
         </tr>
         {% for language in languages %}
             <tr>
-                <th>{{ language.name }}</th>
+                <td><b>{{ language.name }}</b></td>
                 {% for judge in judges %}
                     {% set versions = matrix[judge][language.id] %}
                     <td class="version version-
