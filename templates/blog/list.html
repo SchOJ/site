@@ -11,44 +11,7 @@
 <link rel="alternate" type="application/rss+xml" href="{{ url('problem_rss') }}" title="RSS Problem Feed">
 {% include "blog/media-css.html" %}
 <style>
-    .post {
-            margin: 0 1.4em;
-        }
-
-        .post:first-child {
-            margin-top: 0.6em;
-        }
-
-        .comment-count {
-            font-size: 12px;
-        }
-
-        .comment-icon {
-            padding: 0.1em 0.2em 0 0.5em;
-        }
-
-        .comment-count-link {
-            color: #555;
-        }
-
-        .own-open-tickets .title a, .open-tickets .title a {
-            display: block;
-        }
-
-        .own-open-tickets .object, .open-tickets .object {
-            margin-left: 1em;
-            font-style: italic;
-        }
-
-        .open-tickets .user {
-            margin-left: 1em;
-        }
-
-        .no-clarifications-message {
-            font-style: italic;
-            text-align: center;
-        }
-    </style>
+</style>
 {% endblock %}
 
 {% block js_media %}
@@ -133,6 +96,7 @@
                         {{ _('No clarifications have been made at this time.') }}
                     </p>
                 </div>
+                {% endif %}
             </div>
             {% endif %}
 
