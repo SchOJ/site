@@ -73,7 +73,7 @@
             <div class="inline-header">{{ _('Or enter this code manually:') }}
                 <code class="totp-code">{{ totp_key }}</code>
             </div>
-            <hr>
+            <div class="ui divider"></div>
             {% if form.totp_token.errors %}
                 <div class="form-errors">
                     {{ form.totp_token.errors }}

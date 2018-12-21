@@ -115,7 +115,7 @@
         <div class="form-area comment-submit">
             {% block comment_submit_title %}
                 <h3>{{ _('New comment') }}</h3>
-                <hr>
+                <div class="ui divider"></div>
             {% endblock %}
             {% if is_new_user %}
                 <div style="margin-bottom: 0" class="alert alert-info">
@@ -135,7 +135,7 @@
                     <div class="comment-post-wrapper">
                         <div id="comment-form-body">{{ comment_form.body }}</div>
                     </div>
-                    <hr>
+                    <div class="ui divider"></div>
                     <input style="float:right" type="submit" value="{{ _('Post!') }}" class="button">
                 </form>
             {% endif %}

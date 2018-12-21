@@ -28,7 +28,7 @@
         {% endwith %}
         {{ solution.content|markdown('solution', MATH_ENGINE)|reference|str|safe }}
     </div>
-    <hr>
+    <div class="ui divider"></div>
     {% include "comments/list.html" %}
 {% endblock %}
 
