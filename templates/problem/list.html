@@ -3,7 +3,8 @@
 {% block media %}
     <link rel="stylesheet" href="{{ static('libs/nouislider.min.css') }}">
     <noscript>
-        <style>#category, #types {
+        <style>
+        #category, #types {
             visibility: visible;
         }
         </style>
@@ -12,19 +13,6 @@
         <style>
             a.hot-problem-link:hover > .hot-problem-count {
                 visibility: visible;
-            }
-
-            span.hot-problem-count {
-                color: #555;
-                font-size: 0.75em;
-                vertical-align: super;
-                visibility: hidden;
-                padding-left: 0.25em;
-                position: relative;
-            }
-
-            ul.problem-list {
-                padding: 0 !important;
             }
         </style>
     {% endif %}
@@ -237,7 +225,7 @@
                                 <td solved="0">
                                     <a href="{{ url('user_submissions', problem.code, request.user.username) }}">
                                         {% if problem.is_public or request.in_contest %}
-                                            <i class="icon attempted-problem-color minus-circle"></i>
+                                            <i class="icon attempted-problem-color circle"></i>
                                         {% else %}
                                             <i class="icon attempted-problem-color lock"></i>
                                         {% endif %}
@@ -246,7 +234,7 @@
                             {% else %}
                                 <td solved="-1">
                                     {% if problem.is_public or request.in_contest %}
-                                        <i class="icon unsolved-problem-color minus-circle"></i>
+                                        <i class="icon unsolved-problem-color circle"></i>
                                     {% else %}
                                         <i class="icon unsolved-problem-color lock"></i>
                                     {% endif %}
@@ -293,7 +281,7 @@
                     {% if hot_problems %}
                     <div class="ui card">
                             <div class="content">
-                                <div class="header">{{ _('Hot problems') }} <i class="icon fire"></i></div>
+                                <div class="header">{{ _('Hot problems') }} <i class="icon hotjar"></i></div>
                             </div>
                             <div class="content">
                                 <div class="ui small feed">
