@@ -29,7 +29,7 @@
 <div id="blog-container">
     <div class="ui grid">
         <div class="twelve wide column">
-            <h3 class="ui header">{{ _('News') }} <i class="icon terminal"></i></h3>
+            <h3 class="ui header">{{ _('News') }}</h3>
             <div>
                 {% for post in posts %}
                 <div class="ui divider"></div>
@@ -106,7 +106,6 @@
                     <div class="header">{{ _('Ongoing contests') }}</div>
                 </div>
                 <div class="content">
-                    <h4 class="ui sub header">Activity</h4>
                     <div class="ui small feed">
                         {% for contest in current_contests %}
                         <div class="event">
@@ -129,7 +128,6 @@
                     <div class="header">{{ _('Upcoming contests') }}</div>
                 </div>
                 <div class="content">
-                    <h4 class="ui sub header">Activity</h4>
                     <div class="ui small feed">
                         {% for contest in future_contests %}
                         <div class="event">
@@ -156,7 +154,6 @@
                     <div class="header">{{ _('Comment stream') }}</div>
                 </div>
                 <div class="content">
-                    <h4 class="ui sub header">Activity</h4>
                     <div class="ui small feed">
                         {% for comment in comments %}
                         <div class="event">
@@ -184,7 +181,6 @@
                     <div class="header">{{ _('New problems') }}</div>
                 </div>
                 <div class="content">
-                    <h4 class="ui sub header">Activity</h4>
                     <div class="ui small feed">
                         {% for problem in new_problems %}
                         <div class="event">
@@ -210,7 +206,6 @@
                     <div class="header">{{ _('My open tickets') }} <i class="icon question-circle"></i></div>
                 </div>
                 <div class="content">
-                    <h4 class="ui sub header">Activity</h4>
                     <div class="ui small feed">
                         {% for ticket in own_open_tickets %}
                         <div class="event">
@@ -238,7 +233,6 @@
                     <div class="header">{{ _('New ticket') }}</div>
                 </div>
                 <div class="content">
-                    <h4 class="ui sub header">Activity</h4>
                     <div class="ui small feed">
                         {% for ticket in open_tickets %}
                         <div class="event">
