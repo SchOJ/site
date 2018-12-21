@@ -74,12 +74,12 @@ function register_toggle(link) {
         var toggled = link.next('.toggled');
         if (toggled.is(':visible')) {
             toggled.hide(400);
-            link.children('i').removeClass('right')
-                .addClass('down');
-        } else {
-            toggled.show(400);
             link.children('i').removeClass('down')
                 .addClass('right');
+        } else {
+            toggled.show(400);
+            link.children('i').removeClass('right')
+                .addClass('down');
         }
     });
 }
