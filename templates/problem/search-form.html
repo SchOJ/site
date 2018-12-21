@@ -8,24 +8,26 @@
                 <div class="ui input">
                     <input id="search" type="text" name="search" value="{{ search_query or '' }}" placeholder="{{ _('Search problems...') }}">
                 </div>
-                {% if has_fts %}
-                <div class="ui checkbox">
-                    <input id="full_text" type="checkbox" name="full_text" value="1" {% if full_text %}checked{% endif %}>
-                    <label>{{ _('Full text search') }}</label>
-                </div>
-                {% endif %}
-                {% if request.user.is_authenticated %}
-                <div class="ui checkbox">
-                    <input id="hide_solved" type="checkbox" name="hide_solved" value="1" {% if hide_solved %}checked{% endif %}>
-                    <label>{{ _('Hide solved problems') }}</label>
-                </div>
-                {% endif %}
-                <div class="ui checkbox">
-                        <input id="show_types" type="checkbox" name="show_types" value="1" {% if show_types %} checked{% endif %}>
-                        <label>{{ _('Show problem types') }}</label>
-                </div>
+            <div id="checkboxes" style="margin-top: 5px; margin-bottom: 5px">
+                    {% if has_fts %}
+                    <div class="ui checkbox">
+                        <input id="full_text" type="checkbox" name="full_text" value="1" {% if full_text %}checked{% endif %}>
+                        <label>{{ _('Full text search') }}</label>
+                    </div>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <div class="ui checkbox">
+                        <input id="hide_solved" type="checkbox" name="hide_solved" value="1" {% if hide_solved %}checked{% endif %}>
+                        <label>{{ _('Hide solved problems') }}</label>
+                    </div>
+                    {% endif %}
+                    <div class="ui checkbox">
+                            <input id="show_types" type="checkbox" name="show_types" value="1" {% if show_types %} checked{% endif %}>
+                            <label>{{ _('Show problem types') }}</label>
+                    </div>
+            </div>
                 <div class="filter-form-group">
-                    <label for="category"><i>{{ _('Category') }}</i></label>
+                    <label for="category">{{ _('Category') }}</label>
                     <select id="category" name="category">
                         {% if category %}
                         <option value="" selected="selected">{{ _('All') }}</option>
@@ -52,8 +54,10 @@
                 </div>
                 {% endif %}
                 {% if point_values %}
-                <div class="form-label">{{ _('Point range') }}</div>
-                <div id="point-slider"></div>
+                <div id="pointValue" style="margin: 20px 1px;">
+                        <div class="form-label">{{ _('Point range') }}</div>
+                        <div id="point-slider"></div>
+                </div>
                 {% endif %}
                 <input id="point-start" type="hidden" name="point_start" {% if point_start and point_start !=point_values.min
                     %}value="{{ point_start }}" {% else %}disabled{% endif %}>
