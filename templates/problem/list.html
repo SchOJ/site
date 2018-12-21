@@ -215,7 +215,7 @@
                                 <td solved="1">
                                     <a href="{{ url('user_submissions', problem.code, request.user.username) }}">
                                         {% if problem.is_public or request.in_contest %}
-                                            <i class="icon solved-problem-color check-circle"></i>
+                                            <i class="icon solved-problem-color check circle"></i>
                                         {% else %}
                                             <i class="icon solved-problem-color lock"></i>
                                         {% endif %}
@@ -225,7 +225,7 @@
                                 <td solved="0">
                                     <a href="{{ url('user_submissions', problem.code, request.user.username) }}">
                                         {% if problem.is_public or request.in_contest %}
-                                            <i class="icon attempted-problem-color circle"></i>
+                                            <i class="icon attempted-problem-color minus"></i>
                                         {% else %}
                                             <i class="icon attempted-problem-color lock"></i>
                                         {% endif %}
@@ -234,7 +234,7 @@
                             {% else %}
                                 <td solved="-1">
                                     {% if problem.is_public or request.in_contest %}
-                                        <i class="icon unsolved-problem-color circle"></i>
+                                        <!-- No icon for unsolved -->
                                     {% else %}
                                         <i class="icon unsolved-problem-color lock"></i>
                                     {% endif %}
