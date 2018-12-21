@@ -246,7 +246,7 @@
                 <form action="{{ url('auth_logout') }}" method="POST">
                     {% csrf_token %}
                     <span class="item">
-                        <button class="ui grey button">{{ _('Log out') }}</button>
+                        <button class="ui grey button" style="white-space: nowrap">{{ _('Log out') }}</button>
                     </span>
                 </form>
                 {% endif %}
