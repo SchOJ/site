@@ -74,7 +74,7 @@
     </div>
 
     {% if contest.ended or request.user.is_superuser or is_organizer %}
-        <hr>
+        <div class="ui divider"></div>
         <div class="contest-problems">
             <h2 style="margin-bottom: 0.2em"><i class="fa fa-fw fa-question-circle"></i>{{ _('Problems') }} </h2>
             <table id="contest-problems" class="table">
@@ -118,7 +118,7 @@
         </div>
     {% endif %}
 
-    <hr>
+    <div class="ui divider"></div>
     <span class="social">
         {{ post_to_gplus(request, contest, '<i class="fa fa-google-plus-square"></i>') }}
         {{ post_to_facebook(request, contest, '<i class="fa fa-facebook-official"></i>') }}
