@@ -57,11 +57,9 @@
 {% endblock %}
 
 {% block body %}
-    <div id="common-content">
-        <div id="content-right">
-            <div class="info-float">{% block info_float %}{% endblock %}</div>
-        </div>
-        <div id="content-left" class="split-common-content">
+<div id="common-content">
+    <div class="ui grid">
+        <div class="twelve wide column">
             <div class="content-description screen">
                 {% block description %}{% endblock %}
                 {% block description_end %}
@@ -71,7 +69,11 @@
             </div>
             {% block comments %}{% endblock %}
         </div>
+        <div class="four wide column">
+            <div class="info-float">{% block info_float %}{% endblock %}</div>
+        </div>
     </div>
+</div>
 {% endblock %}
 
 {% block bodyend %}
