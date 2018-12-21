@@ -65,13 +65,15 @@
                 <div style="margin-bottom: 7px; margin-top: 3px;">
                     {% include "list-pages.html" %}
                     <form id="search-form" name="form" action="{{ url('user_ranking_redirect') }}" method="get">
-                        <input id="search-handle" type="text" name="search"
-                               placeholder="{{ _('Search by handle...') }}">
+                        <div class="ui input">
+                            <input id="search-handle" type="text" name="search"
+                                placeholder="{{ _('Search by handle...') }}">
+                        </div>
                     </form>
                 </div>
             {% endif %}
 
-            <table id="users-table" class="table">
+            <table id="users-table" class="ui celled table">
                 {% block users_table %}{% endblock %}
             </table>
 
