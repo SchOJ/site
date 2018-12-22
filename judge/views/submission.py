@@ -251,12 +251,12 @@ class SubmissionsListBase(DiggPaginatorMixin, TitleMixin, ListView):
         if check is not None:
             return check
         
-        if request.GET.get('language') != None:
+        if request.GET.get('language'):
             self.selected_languages = set(request.GET.get('language').split(','))
         else:
             self.selected_languages = set()
         
-        if request.GET.get('status') != None:
+        if request.GET.get('status'):
             self.selected_statuses = set(request.GET.get('status').split(','))
         else:
             self.selected_statuses = set()
