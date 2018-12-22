@@ -1,31 +1,31 @@
-<ul class="pagination">
+<div class="ui pagination menu">
     {% if page_obj.has_previous() %}
         {% if page_obj.previous_page_number() == 1 and first_page_href != None %}
-            <li><a href="{{ first_page_href }}">«</a></li>
+            <a class="item" href="{{ first_page_href }}">«</a>
         {% else %}
-            <li><a href="{{ page_prefix or '' }}{{ page_obj.previous_page_number() }}{{ page_suffix or '' }}">«</a></li>
+            <a class="item" href="{{ page_prefix or '' }}{{ page_obj.previous_page_number() }}{{ page_suffix or '' }}">«</a>
         {% endif %}
     {% else %}
-        <li class="disabled-page"><span>«</span></li>
+        <div class="diabled item">«</div>
     {% endif %}
 
     {% for page in page_obj.page_range %}
         {% if not page %}
-            <li class="disabled-page"><span>...</span></li>
+            <div class="disabled item">...</div>
         {% else %}
-            <li{% if page == page_obj.number %} class="active-page"{% endif %}><a href="
+            <a class="{% if page == page_obj.number %}active {% endif %}item" href="
                 {%- if page == 1 and first_page_href != None -%}
                     {{ first_page_href }}
                 {%- else -%}
                     {{ page_prefix or '' }}{{ page }}{{ page_suffix or '' }}
                 {%- endif -%}
-            ">{{ page }}</a></li>
+            ">{{ page }}</a>
         {% endif %}
     {% endfor %}
 
     {% if page_obj.has_next() %}
-        <li><a href="{{ page_prefix or '' }}{{ page_obj.next_page_number() }}{{ page_suffix or '' }}">»</a></li>
+        <a class="item" href="{{ page_prefix or '' }}{{ page_obj.next_page_number() }}{{ page_suffix or '' }}">»</a>
     {% else %}
-        <li class="disabled-page"><span>»</span></li>
+        <a class="disabled item">»</div>
     {% endif %}
-</ul>
+</div>
