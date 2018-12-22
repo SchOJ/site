@@ -353,13 +353,22 @@
                     </div>
                     <div class="content">
                         <form id="filter-form" name="form" action="" method="get">
+                            <div class="ui multiple selection dropdown">
+                                <input name="states" type="hidden">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">States</div>
+                                <div class="menu">
+                                    {% for id, name in all_statuses %}
+                                    <div class="item {% if id in selected_statuses %}selected{% endif %}" data-value="{{ id }}">{{ name }}</div>
+                                    {% endfor %}
+                                    <div class="item" data-value="AL">Alabama</div>
+                                </div>
+                            </div>
+
                             <div class="filter-form-group">
                                 <label for="status">{{ _('Status') }}</label> <br>
                                 <select id="status" name="status" multiple>
-                                    {% for id, name in all_statuses %}
-                                    <option {% if id in selected_statuses %}selected{% endif %} value="{{ id }}">{{
-                                        name }}</option>
-                                    {% endfor %}
+                                    
                                 </select>
                             </div>
                             <div class="filter-form-group">
