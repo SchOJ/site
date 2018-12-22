@@ -125,8 +125,7 @@
                     return;
                 first = id;
                 row = $('<tr>', { id: id }).hide().prependTo(table);
-                if (table.find('tr').length >= {{ paginator.per_page }
-            })
+                if (table.find('tr').length >= {{ paginator.per_page }})
             table.find('tr:last-child').hide('slow', function () {
                 $(this).remove();
             });
