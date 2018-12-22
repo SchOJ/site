@@ -370,7 +370,7 @@
                                     <div class="default text">Language</div>
                                     <div class="menu">
                                         {% for code, name in all_languages %}
-                                        <div class="item {% if code in selected_languages %}selected{% endif %}" value="{{ code }}">{{ name }}</div>
+                                        <div class="item {% if code in selected_languages %}selected{% endif %}" data-value="{{ code }}">{{ name }}</div>
                                         {% endfor %}
                                     </div>
                                 </div>
