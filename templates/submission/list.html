@@ -353,34 +353,28 @@
                     </div>
                     <div class="content">
                         <form id="filter-form" name="form" action="" method="get">
-                            <div class="ui multiple selection dropdown">
-                                <input name="states" type="hidden">
+                            <div class="ui multiple fluid search selection dropdown">
+                                <input name="status" type="hidden">
                                 <i class="dropdown icon"></i>
-                                <div class="default text">States</div>
+                                <div class="default text">Status</div>
                                 <div class="menu">
                                     {% for id, name in all_statuses %}
                                     <div class="item {% if id in selected_statuses %}selected{% endif %}" data-value="{{ id }}">{{ name }}</div>
                                     {% endfor %}
-                                    <div class="item" data-value="AL">Alabama</div>
                                 </div>
                             </div>
 
-                            <div class="filter-form-group">
-                                <label for="status">{{ _('Status') }}</label> <br>
-                                <select id="status" name="status" multiple>
-                                    
-                                </select>
-                            </div>
-                            <div class="filter-form-group">
-                                <label for="language">{{ _('Language') }}</label>
-                                <br>
-                                <select id="language" name="language" multiple>
-                                    {% for code, name in all_languages %}
-                                    <option {% if code in selected_languages %}selected{% endif %} value="{{ code }}">{{
-                                        name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                            <div class="ui multiple fluid search selection dropdown">
+                                    <input name="language" type="hidden">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Language</div>
+                                    <div class="menu">
+                                        {% for code, name in all_languages %}
+                                        <div class="item {% if code in selected_languages %}selected{% endif %}" value="{{ code }}">{{ name }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
                             <div class="form-submit-group">
                                 <button id="go" onclick="form.submit()" class="ui button primary">{{
                                     _('Go') }}</a>
@@ -409,5 +403,8 @@
 {% endblock %}
 
 {% block bodyend %}
+<script>
+    $('.ui.dropdown').dropdown();
+</script>
 {# Don't load MathJax from common-content! #}
 {% endblock %}
