@@ -354,7 +354,7 @@
                     <div class="content">
                         <form id="filter-form" name="form" action="" method="get">
                             <div class="filter-form-group">
-                                <label for="status"><i>{{ _('Status') }}</i></label>
+                                <label for="status">{{ _('Status') }}</label> <br>
                                 <select id="status" name="status" multiple>
                                     {% for id, name in all_statuses %}
                                     <option {% if id in selected_statuses %}selected{% endif %} value="{{ id }}">{{
@@ -363,7 +363,8 @@
                                 </select>
                             </div>
                             <div class="filter-form-group">
-                                <label for="language"><i>{{ _('Language') }}</i></label>
+                                <label for="language">{{ _('Language') }}</label>
+                                <br>
                                 <select id="language" name="language" multiple>
                                     {% for code, name in all_languages %}
                                     <option {% if code in selected_languages %}selected{% endif %} value="{{ code }}">{{
