@@ -181,6 +181,16 @@
             }
         }
 
+        #btnToggleNav {
+            display: none;
+        }
+        
+        @media screen and (max-width: 768px) {
+            #btnToggleNav {
+                display: block;
+            }
+        }
+
         #topMenu {
             transition: height 0.4s ease;
         }
@@ -199,7 +209,7 @@
             window.location = '/status/';
         });
         $('#btnToggleNav').click( () => {
-            $('#navButtons').toggle(0);
+            $('#topMenu .item').toggle(0);
         })
     </script>
 
@@ -221,7 +231,6 @@
             <div class="item home-nav-element">
                 <a href="{{ url('home') }}">{% include "site-logo-fragment.html" %}</a>
             </div>
-            <div id="navButtons">
             <a class="item home-menu-item" href="{{ url('home') }}">
                 {{ _('Home') }}
             </a>
@@ -266,7 +275,6 @@
                 </span>
                 {% endif %}
             </span>
-        </div>
             <button id="btnToggleNav" class="ui button">
                 {{ _('Toggle navbar') }}
             </button>
