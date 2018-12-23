@@ -181,18 +181,20 @@
             }
         }
 
+        @media screen and (min-width: 768px) and (max-width: 1180px) {
+            .ui.stackable.menu .item {
+                width: 100% !important;
+            }   
+        }
+
         #btnToggleNav {
             display: none;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1180px) {
             #btnToggleNav {
                 display: block;
             }
-        }
-
-        #topMenu {
-            transition: height 0.4s ease;
         }
 
         span.anon a.button {
@@ -200,6 +202,7 @@
         }
         #imgGravatar {
             height: 80%;
+            max-height: 40px;
             margin: auto;
         }
     </style>
