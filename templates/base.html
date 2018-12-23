@@ -184,7 +184,18 @@
         @media screen and (min-width: 768px) and (max-width: 1180px) {
             .ui.stackable.menu .item {
                 width: 100% !important;
-            }   
+            }
+            
+            #topMenu, .right.menu {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            #btnToggleNav {
+                margin: 0;
+            }
         }
 
         #btnToggleNav {
