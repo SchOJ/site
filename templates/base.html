@@ -184,7 +184,7 @@
         #btnToggleNav {
             display: none;
         }
-        
+
         @media screen and (max-width: 768px) {
             #btnToggleNav {
                 display: block;
@@ -203,15 +203,6 @@
             margin: auto;
         }
     </style>
-
-    <script>
-        $('#divStatus').click(() => {
-            window.location = '/status/';
-        });
-        $('#btnToggleNav').click( () => {
-            $('#topMenu .item').toggle(0);
-        })
-    </script>
 
     <noscript>
         <style>
@@ -342,5 +333,13 @@
             </span>
         </footer>
     </div>
+    <script>
+        $('#divStatus').click(() => {
+            window.location = '/status/';
+        });
+        $('#btnToggleNav').click( () => {
+            $('#topMenu .item').toggle(0);
+        })
+    </script>
 </body>
 </html>
