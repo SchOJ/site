@@ -175,9 +175,16 @@
     {% endif %}
 
     <style>
-        #topMenu {
+        @media screen and (min-width: 1180px) {
+            #topMenu {
             height: 49px;
+            }
         }
+
+        #topMenu {
+            transition: height 0.4s ease;
+        }
+
         span.anon a.button {
             margin: 0 0.2vw !important;
         }
@@ -191,6 +198,9 @@
         $('#divStatus').click(() => {
             window.location = '/status/';
         });
+        $('#btnToggleNav').click( () => {
+            $('#navButtons').toggle(0);
+        })
     </script>
 
     <noscript>
@@ -207,13 +217,11 @@
 </head>
 
 <body>
-    <nav id="topMenu" class="ui fixed borderless menu">
-        {% if not( request.user.is_staff or request.user.is_superuser ) %}
-        <div class="ui container">
-        {% endif %}
+    <nav id="topMenu" class="ui fixed borderless stackable menu">
             <div class="item home-nav-element">
                 <a href="{{ url('home') }}">{% include "site-logo-fragment.html" %}</a>
             </div>
+            <div id="navButtons">
             <a class="item home-menu-item" href="{{ url('home') }}">
                 {{ _('Home') }}
             </a>
@@ -258,10 +266,10 @@
                 </span>
                 {% endif %}
             </span>
-        {% if not( request.user.is_staff or request.user.is_superuser ) %}
         </div>
-        {% endif %}
-        <div id="nav-shadow"></div>
+            <button id="btnToggleNav" class="ui button">
+                {{ _('Toggle navbar') }}
+            </button>
     </nav>
     {% if request.in_contest %}
     <div id="contest-info">
