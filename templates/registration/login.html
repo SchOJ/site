@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 
 {% block media %}
+<style>
+    form button {
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div class="ui stackable centered grid">
     <div class="five wide column">
     <div id="login-panel">
-        <form action="" method="post" class="form-area">
+        <form action="" class="ui form" method="post">
             {% csrf_token %}
             {% if form.errors %}
                 <div id="form-errors">
                     <p class="error">{{ _('Invalid username or password.') }}</p>
                 </div>
             {% endif %}
-            <form class="ui form">
                 <div class="field">
                   <label><i class="icon user"></i></label>
                   <input type="text" name="username" placeholder="Username">
@@ -23,11 +27,10 @@
                   <label><i class="icon key"></i></label>
                   <input type="password" name="password" placeholder="Password">
                 </div>
-                <button class="ui button" type="submit">{{ _('Login!') }}</button>
-              </form>
+                <button class="ui primary button" type="submit">{{ _('Login!') }}</button>
+                <a class="ui button" href="{{ url('password_reset') }}">{{ _('Forgot your password?') }}</a>
             <input type="hidden" name="next" value="{{ next }}">
         </form>
-        <a class="ui button secondary" href="{{ url('password_reset') }}">{{ _('Forgot your password?') }}</a>
 
         {% if form.has_google_auth or form.has_facebook_auth or form.has_github_auth or form.has_dropbox_auth %}
             <h4>{{ _('Or log in with...') }}</h4>
