@@ -15,17 +15,17 @@
         <form action="" class="ui form" method="post">
             {% csrf_token %}
             {% if form.errors %}
-                <div id="form-errors">
-                    <p class="error">{{ _('Invalid username or password.') }}</p>
+                <div class="ui warning message">
+                    <p>{{ _('Invalid username or password.') }}</p>
                 </div>
             {% endif %}
                 <div class="field">
-                  <label><i class="icon user"></i></label>
-                  <input type="text" name="username" placeholder="Username">
+                  <label><i class="icon user"></i> {{ _('Username') }}</label>
+                  <input type="text" name="username">
                 </div>
                 <div class="field">
-                  <label><i class="icon key"></i></label>
-                  <input type="password" name="password" placeholder="Password">
+                  <label><i class="icon key"></i> {{ _('Password') }}</label>
+                  <input type="password" name="password">
                 </div>
                 <button class="ui primary button" type="submit">{{ _('Login!') }}</button>
                 <a class="ui button" href="{{ url('password_reset') }}">{{ _('Forgot your password?') }}</a>
