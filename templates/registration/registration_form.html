@@ -27,7 +27,7 @@
                     {% csrf_token %}
 
                     <div class="field {% if form.username.errors %} error {% endif %}">
-                        <label>{{ _('Username') }</label>
+                        <label>{{ _('Username') }}</label>
                         <input type="text" name="username" value="{{ form.username.value }}">
                         {% if form.username.errors %}
                         <div>{{ form.username.errors }}</div>
