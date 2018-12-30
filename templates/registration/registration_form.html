@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="field {% if form.email.errors %} error {% endif %}">
-                        <label>{{ _('Email') }</label>
+                        <label>{{ _('Email') }}</label>
                         <input type="email" name="email" value="{{ form.email.value }}">
                         {% if form.email.errors %}
                         <div>{{ form.email.errors }}</div>
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="field {% if form.password1.errors %} error {% endif %}">
-                        <label>{{ _('Password') } (<a id="showPW" onclick="$('#PWMessage').show()">?</a>)</label>
+                        <label>{{ _('Password') }} (<a id="showPW" onclick="$('#PWMessage').show()">?</a>)</label>
                         <input type="password" name="password1" value="{{ form.password1.value }}">
                         <div id="PWMessage" class="ui message">
                             <ul>
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="field {% if form.password2.errors %} error {% endif %}">
-                        <label>{{ _('Password') } <small>{{ _('(again, for confirmation)') }}</small> </label>
+                        <label>{{ _('Password') }} <small>{{ _('(again, for confirmation)') }}</small> </label>
                         <input type="password" name="password2" value="{{ form.password2.value }}">
                         {% if form.password2.errors %}
                         <div>{{ form.password2.errors }}</div>
