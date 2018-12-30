@@ -33,7 +33,7 @@
 
                     <div class="field {% if form.username.errors %} error {% endif %}">
                         <label>{{ _('Username') }}</label>
-                        <input type="text" name="username" value="{{ form.username.value }}">
+                        <input type="text" name="username" value="{{ form.username.value() }}">
                         {% if form.username.errors %}
                         <div>{{ form.username.errors }}</div>
                         {% endif %}
@@ -41,7 +41,7 @@
 
                     <div class="field {% if form.email.errors %} error {% endif %}">
                         <label>{{ _('Email') }}</label>
-                        <input type="email" name="email" value="{{ form.email.value }}">
+                        <input type="email" name="email" value="{{ form.email.value() }}">
                         {% if form.email.errors %}
                         <div>{{ form.email.errors }}</div>
                         {% endif %}
@@ -49,7 +49,7 @@
 
                     <div class="field {% if form.password1.errors %} error {% endif %}">
                         <label>{{ _('Password') }} (<a id="showPW" onclick="$('#PWMessage').transition('slide down')">?</a>)</label>
-                        <input type="password" name="password1" value="{{ form.password1.value }}">
+                        <input type="password" name="password1" value="{{ form.password1.value() }}">
                         <div id="PWMessage" class="ui message">
                             <ul>
                                 {% for validator in password_validators %}
@@ -64,7 +64,7 @@
 
                     <div class="field {% if form.password2.errors %} error {% endif %}">
                         <label>{{ _('Password') }} <small>{{ _('(again, for confirmation)') }}</small> </label>
-                        <input type="password" name="password2" value="{{ form.password2.value }}">
+                        <input type="password" name="password2" value="{{ form.password2.value() }}">
                         {% if form.password2.errors %}
                         <div>{{ form.password2.errors }}</div>
                         {% endif %}
