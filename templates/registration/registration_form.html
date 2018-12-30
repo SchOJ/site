@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block media %}
+<style>
+        #PWMessage {
+            display: none;
+        }
+</style>
 {% endblock %}
 
 {% block js_media %}
@@ -43,7 +48,7 @@
                     </div>
 
                     <div class="field {% if form.password1.errors %} error {% endif %}">
-                        <label>{{ _('Password') }} (<a id="showPW" onclick="$('#PWMessage').show()">?</a>)</label>
+                        <label>{{ _('Password') }} (<a id="showPW" onclick="$('#PWMessage').transition('slide down')">?</a>)</label>
                         <input type="password" name="password1" value="{{ form.password1.value }}">
                         <div id="PWMessage" class="ui message">
                             <ul>
