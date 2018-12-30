@@ -5,6 +5,9 @@
         #PWMessage {
             display: none;
         }
+        #btnSubmit {
+            float: right;
+        }
 </style>
 {% endblock %}
 
@@ -71,7 +74,7 @@
                     </div>
 
                     <div class="field">
-                        <label>{{ _('Timezone') }}<small>{{ _('(select your closest major city)') }}</small></label>
+                        <label>{{ _('Timezone') }} <small>{{ _('(select your closest major city)') }}</small></label>
                         <div>{{ form.timezone }}
                             <div style="float: right">
                                 {{ _('or') }}
@@ -113,7 +116,7 @@
                             <a href="{{ tos_url }}">{{ _('Terms & Conditions') }}</a>.
                         </span>
                     {% endif %}
-                    <button class="ui button" type="submit">{{ _('Register!') }}</button>
+                    <button id="btnSubmit" class="ui button" type="submit">{{ _('Register!') }}</button>
                 </form>
     </div>
 </div>
