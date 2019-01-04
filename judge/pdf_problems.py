@@ -66,7 +66,7 @@ class BasePdfMaker(object):
 
 
 class PhantomJSPdfMaker(BasePdfMaker):
-    template = u'''\
+    template = '''\
 "use strict";
 var page = require('webpage').create();
 var param = {params};
@@ -125,7 +125,7 @@ page.open(param.input, function (status) {
 class SlimerJSPdfMaker(BasePdfMaker):
     math_engine = 'mml'
 
-    template = u'''\
+    template = '''\
 "use strict";
 try {
     var param = {params};

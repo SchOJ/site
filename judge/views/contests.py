@@ -1,21 +1,21 @@
 from calendar import Calendar, SUNDAY
 from collections import namedtuple, defaultdict
+from datetime import timedelta, date, datetime, time
 from functools import partial
 from itertools import chain
 from operator import attrgetter
 
-from datetime import timedelta, date, datetime, time
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
-from django.core.urlresolvers import reverse
 from django.db import connection, IntegrityError
-from django.db.models import Q, Min, Max, Count, Sum, Case, When, IntegerField
+from django.db.models import Q, Min, Max, Sum, Case, When, IntegerField
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template.defaultfilters import date as date_filter
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.html import escape, format_html
@@ -339,7 +339,7 @@ class ContestCalendar(TitleMixin, ContestListMixin, TemplateView):
         end += timedelta(days=1)
         contests = self.get_queryset().filter(Q(start_time__gte=start, start_time__lt=end) |
                                               Q(end_time__gte=start, end_time__lt=end)).defer('description')
-        starts, ends, oneday = (defaultdict(list) for i in xrange(3))
+        starts, ends, oneday = (defaultdict(list) for i in range(3))
         for contest in contests:
             start_date = timezone.localtime(contest.start_time).date()
             end_date = timezone.localtime(contest.end_time).date()
@@ -461,7 +461,7 @@ def base_contest_ranking_list(contest, problems, queryset, for_user=None):
     data = {(part, prob): (code, best, last and from_database_time(last)) for part, prob, code, best, last in cursor}
     cursor.close()
 
-    problems = map(attrgetter('id', 'points', 'is_pretested'), problems)
+    problems = list(map(attrgetter('id', 'points', 'is_pretested'), problems))
 
     def make_ranking_profile(participation):
         part = participation.id
@@ -473,8 +473,8 @@ def base_contest_ranking_list(contest, problems, queryset, for_user=None):
             if (part, prob) in data and data[part, prob][1] is not None else None
             for prob, points, is_pretested in problems])
 
-    return map(make_ranking_profile, queryset.select_related('user__user', 'rating')
-               .defer('user__about', 'user__organizations__about'))
+    return list(map(make_ranking_profile, queryset.select_related('user__user', 'rating')
+                    .defer('user__about', 'user__organizations__about')))
 
 
 def contest_ranking_list(contest, problems):
@@ -595,7 +595,7 @@ def base_participation_list(request, contest, profile):
     prof_username = profile.user.username
 
     queryset = contest.users.filter(user=profile, virtual__gte=0).order_by('-virtual')
-    live_link = format_html(u'<a href="{2}#!{1}">{0}</a>', _('Live'), prof_username,
+    live_link = format_html('<a href="{2}#!{1}">{0}</a>', _('Live'), prof_username,
                             reverse('contest_ranking', args=[contest.key]))
     users, problems = get_contest_ranking_list(
         request, contest, show_current_virtual=False,

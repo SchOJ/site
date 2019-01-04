@@ -73,7 +73,7 @@ class ProfileAdmin(VersionAdmin):
         return fields
 
     def show_public(self, obj):
-        return format_html(u'<a href="{0}" style="white-space:nowrap;">{1}</a>',
+        return format_html('<a href="{0}" style="white-space:nowrap;">{1}</a>',
                            obj.get_absolute_url(), ugettext('View on site'))
     show_public.short_description = ''
 

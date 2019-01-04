@@ -3,9 +3,10 @@ import itertools
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models import CASCADE
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from mptt.fields import TreeForeignKey
@@ -37,7 +38,7 @@ class VersionRelation(GenericRelation):
 
 
 class Comment(MPTTModel):
-    author = models.ForeignKey(Profile, verbose_name=_('commenter'))
+    author = models.ForeignKey(Profile, verbose_name=_('commenter'), on_delete=CASCADE)
     time = models.DateTimeField(verbose_name=_('posted time'), auto_now_add=True)
     page = models.CharField(max_length=30, verbose_name=_('associated page'), db_index=True,
                             validators=[comment_validator])
@@ -45,7 +46,8 @@ class Comment(MPTTModel):
     title = models.CharField(max_length=200, verbose_name=_('title of comment'), blank=True)
     body = models.TextField(verbose_name=_('body of comment'), max_length=8192)
     hidden = models.BooleanField(verbose_name=_('hide the comment'), default=0)
-    parent = TreeForeignKey('self', verbose_name=_('parent'), null=True, blank=True, related_name='replies')
+    parent = TreeForeignKey('self', verbose_name=_('parent'), null=True, blank=True, related_name='replies',
+                            on_delete=CASCADE)
     versions = VersionRelation()
 
     class Meta:
@@ -154,8 +156,8 @@ class Comment(MPTTModel):
 
 
 class CommentVote(models.Model):
-    voter = models.ForeignKey(Profile, related_name='voted_comments')
-    comment = models.ForeignKey(Comment, related_name='votes')
+    voter = models.ForeignKey(Profile, related_name='voted_comments', on_delete=CASCADE)
+    comment = models.ForeignKey(Comment, related_name='votes', on_delete=CASCADE)
     score = models.IntegerField()
 
     class Meta:

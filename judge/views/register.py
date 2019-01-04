@@ -19,7 +19,7 @@ from judge.utils.subscription import Subscription, newsletter_id
 from judge.widgets import Select2Widget, Select2MultipleWidget
 
 valid_id = re.compile(r'^\w+$')
-bad_mail_regex = map(re.compile, getattr(settings, 'BAD_MAIL_PROVIDER_REGEX', ()))
+bad_mail_regex = list(map(re.compile, getattr(settings, 'BAD_MAIL_PROVIDER_REGEX', ())))
 
 
 class CustomRegistrationForm(RegistrationForm):
@@ -43,14 +43,14 @@ class CustomRegistrationForm(RegistrationForm):
 
     def clean_email(self):
         if User.objects.filter(email=self.cleaned_data['email']).exists():
-            raise forms.ValidationError(ugettext(u'The email address "%s" is already taken. Only one registration '
-                                                 u'is allowed per address.') % self.cleaned_data['email'])
+            raise forms.ValidationError(ugettext('The email address "%s" is already taken. Only one registration '
+                                                 'is allowed per address.') % self.cleaned_data['email'])
         if '@' in self.cleaned_data['email']:
             domain = self.cleaned_data['email'].split('@')[-1].lower()
             if (domain in getattr(settings, 'BAD_MAIL_PROVIDERS', ())
                     or any(regex.match(domain) for regex in bad_mail_regex)):
-                raise forms.ValidationError(ugettext(u'Your email provider is not allowed due to history of abuse. '
-                                                     u'Please use a reputable email provider.'))
+                raise forms.ValidationError(ugettext('Your email provider is not allowed due to history of abuse. '
+                                                     'Please use a reputable email provider.'))
         return self.cleaned_data['email']
 
 

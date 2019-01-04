@@ -12,8 +12,8 @@ from . import (camo, datetime, filesize, gravatar, language, markdown, rating, r
                spaceless, submission, timedelta)
 from . import registry
 
-registry.function('str', unicode)
-registry.filter('str', unicode)
+registry.function('str', str)
+registry.filter('str', str)
 registry.filter('json', json.dumps)
 registry.filter('highlight', highlight_code)
 registry.filter('urlquote', urlquote)
@@ -25,7 +25,7 @@ registry.function('user_trans', ugettext)
 
 @registry.function
 def counter(start=1):
-    return itertools.count(start).next
+    return itertools.count(start).__next__
 
 
 class DMOJExtension(Extension):
