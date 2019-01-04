@@ -40,7 +40,7 @@
     {% for problem in problems %}
         <th class="points header"><a href="{{ url('contest_ranked_submissions', contest.key, problem.problem.code) }}">
             {{- loop.index }}
-            <span class="point-denominator">{{ problem.points }}</span>
+            <span class="point-denominator">({{ problem.points }})</span>
         </a></th>
     {% endfor %}
 {% endblock %}
