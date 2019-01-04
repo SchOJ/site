@@ -7,7 +7,7 @@ django-reversion
 django-social-share
 django-sortedm2m
 django-impersonate
--e git://github.com/DMOJ/dmoj-wpadmin.git#egg=dmoj-wpadmin
+django-jet
 lxml
 Pygments
 mistune
