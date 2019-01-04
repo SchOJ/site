@@ -62,7 +62,6 @@
 {% endblock %}
 
 {% block body %}
-    <br>
     <a class="ui button" href="{{ url('submission_source', submission.id) }}">{{ _('View source') }}</a>
     {% if request.user == submission.user.user or perms.judge.resubmit_other %}
     <a class="ui button" href="{{ url('problem_submit', submission.problem.code, submission.id) }}">{{ _('Resubmit') }}</a>
@@ -77,7 +76,7 @@
     {% endif %}
 
     <br>
-    <hr class="half-hr">
+    <div class="ui divider"></div>
     <br>
 
     <div id="test-cases">{% include "submission/status-testcases.html" %}</div>

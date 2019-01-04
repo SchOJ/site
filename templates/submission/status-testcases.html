@@ -16,7 +16,7 @@
     {% else %}
         {% if submission.error %}
             <h3>{{ _('Compilation Warnings') }}</h3>
-            <pre>{{ submission.error|safe }}</pre>
+            <pre class="ui message" style="white-space: pre-wrap;">{{ submission.error|safe }}</pre>
             <div class="ui divider"></div>
         {% endif %}
         {% if is_pretest %}
@@ -24,13 +24,11 @@
         {% else %}
             <h3>{{ _('Execution Results') }}</h3>
         {% endif %}
-        <br>
         {% set test_case_id = counter() %}
         {% for batch in batches %}
             {% if batch.id %}
                 <b>{{ _('Batch ') }}#{{ test_case_id() }}</b>
                 ({{ _('%(points)s/%(total)s points', points=batch.points|floatformat(0), total=batch.total|floatformat(0)) }})
-                <br>
                 <div class="batch-cases">
             {% endif %}
         <table class="ui celled table">{% for case in batch.cases %}
@@ -58,14 +56,14 @@
                 <td>
                     {%- if case.status != 'SC' -%}
                         {%- if case.status == 'TLE' -%}
-                            [&gt;<span>{{ time_limit|floatformat(3) }}s,</span>
+                            &gt;<span>{{ time_limit|floatformat(3) }}s</span>
                         {%- else -%}
-                            [<span title="{{ case.time }}s">{{ case.time|floatformat(3) }}s,</span>
+                            <span title="{{ case.time }}s">{{ case.time|floatformat(3) }}s</span>
                         {%- endif -%}
                     {%- endif -%}
                 </td>
 
-                <td>{% if case.status != 'SC' %}{{ case.memory|kbdetailformat }}]{% endif %}</td>
+                <td>{% if case.status != 'SC' %}{{ case.memory|kbdetailformat }}{% endif %}</td>
 
                 {% if not batch.id %}
                     <td>({{ case.points|floatformat(0) }}/{{ case.total|floatformat(0) }})</td>
@@ -90,10 +88,8 @@
         </table>
 
         {% if batch.id %}</div>{% endif %}
-            <br>
         {% endfor %}
         {% if submission.is_graded %}
-            <br>
             {% if submission.result != "AB" %}
                 {% if is_pretest %}
                     <b>{{ _('Final pretest score:') }}</b>
@@ -111,13 +107,11 @@
                           total=submission.problem.points|floatformat(-1)) }})
                 {% endif %}
                 {% if is_pretest and submission.result == "AC" %}
-                    <br>
                     <i>{{ _('Passing pretests does not guarantee a full score on system tests.') }}</i>
                 {% endif %}
             {% else %}
                 <b>{{ _('Submission aborted!') }}</b>
             {% endif %}
-            <br>
         {% endif %}
     {% endif %}
 {% else %}
