@@ -2,3 +2,14 @@
   float: right;
   margin-top: 1.2em;
 }
+
+/* Submission  */
+
+.submission-info {
+  text-align: right;
+  float: right;
+
+  .submission-date {
+      color: gray;
+  }
+}

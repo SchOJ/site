@@ -56,19 +56,17 @@
 
 {% block body %}
     <br>
-    <div><a href="{{ url('submission_source', submission.id) }}">{{ _('View source') }}</a></div>
+    <a class="ui button" href="{{ url('submission_source', submission.id) }}">{{ _('View source') }}</a>
     {% if request.user == submission.user.user or perms.judge.resubmit_other %}
-        <div><a href="{{ url('problem_submit', submission.problem.code, submission.id) }}">{{ _('Resubmit') }}</a></div>
+    <a class="ui button" href="{{ url('problem_submit', submission.problem.code, submission.id) }}">{{ _('Resubmit') }}</a>
     {% endif %}
     {% if perms.judge.rejudge_submission %}
-        <div>
             <form action="{{ url('submission_rejudge') }}" method="post">
                 {% csrf_token %}
-                <a href="#" onclick="parentNode.submit()">{{ _('Rejudge') }}</a>
+                <a class="ui button" href="#" onclick="parentNode.submit()">{{ _('Rejudge') }}</a>
                 <input type="hidden" name="id" value="{{ submission.id }}">
                 <input type="hidden" name="path" value="{{ url('submission_status', submission.id) }}">
             </form>
-        </div>
     {% endif %}
 
     <br>
@@ -80,13 +78,10 @@
     {% if not submission.is_graded %}
         {% if request.user == submission.user.user or perms.judge.abort_any_submission %}
             <div id="abort-button">
-                <br>
-                <hr class="half-hr">
-                <br>
+                <div class="ui divider"></div>
                 <form action="{{ url('submission_abort', submission.id) }}" method="post">
                     {% csrf_token %}
                     <input style="float:left" type="submit" value="{{ _('Abort') }}" class="button">
-                    <br><br>
                 </form>
             </div>
         {% endif %}

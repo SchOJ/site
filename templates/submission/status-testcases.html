@@ -17,7 +17,7 @@
         {% if submission.error %}
             <h3>{{ _('Compilation Warnings') }}</h3>
             <pre>{{ submission.error|safe }}</pre>
-            <hr class="half-hr"><br>
+            <div class="ui divider"></div>
         {% endif %}
         {% if is_pretest %}
             <h3>{{ _('Pretest Execution Results') }}</h3>
@@ -33,11 +33,11 @@
                 <br>
                 <div class="batch-cases">
             {% endif %}
-        <table>{% for case in batch.cases %}
+        <table class="ui celled table">{% for case in batch.cases %}
             <tr id="{{ case.id }}" class="case-row toggle closed">
                 <td>
                     {%- if case.status != 'AC' and case.output -%}
-                        <i class="fa fa-chevron-right fa-fw"></i>
+                        <i class="icon chevron right"></i>
                     {%- endif -%}
                     {%- if batch.id -%}
                         <b>{{ _('Case') }} #{{ loop.index }}:</b>
