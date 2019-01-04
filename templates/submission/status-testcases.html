@@ -12,7 +12,7 @@
         <h4>{{ _('Your submission is being processed...') }}</h4>
     {% elif submission.status == 'CE' %}
         <h3>{{ _('Compilation Error') }}</h3>
-        <pre>{{ submission.error|safe }}</pre>
+        <pre class="ui message" style="white-space: pre-wrap;">{{ submission.error|safe }}</pre>
     {% else %}
         {% if submission.error %}
             <h3>{{ _('Compilation Warnings') }}</h3>
