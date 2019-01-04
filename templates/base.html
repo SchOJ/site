@@ -304,7 +304,6 @@
         <noscript>
             <div id="noscript">{{ _('This site works best with JavaScript enabled.') }}</div>
         </noscript>
-        <br>
         <main id="content" class="ui stackable container">
             {% block title_row %}
             <h2 style="color:#393630; display:inline">
@@ -328,7 +327,6 @@
 
         <footer>
             <span id="footer-content">
-                <br>
                 <a style="color: #808080" href="https://dmoj.ca">proudly powered by <b>DMOJ</b></a> |
                 {% if i18n_config.footer %}
                 {{ i18n_config.footer|safe }} |
