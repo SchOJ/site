@@ -22,6 +22,11 @@
 
 {% block content_media %}
     {% include "comments/media-css.html" %}
+    <style>
+        #time {
+            float: right;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -67,6 +72,7 @@
         </div>
     </div>
 
+    <div class="ui divider"></div>
     <div class="content-description">
         {% cache 3600 'contest_html' contest.id MATH_ENGINE %}
             {{ contest.description|markdown('contest', MATH_ENGINE)|reference|str|safe }}
@@ -77,7 +83,7 @@
         <div class="ui divider"></div>
         <div class="contest-problems">
             <h2 style="margin-bottom: 0.2em"><i class="fa fa-fw fa-question-circle"></i>{{ _('Problems') }} </h2>
-            <table id="contest-problems" class="table">
+            <table id="contest-problems" class="ui celled table">
                 <thead>
                 <tr>
                     <th>{{ _('Problem') }}</th>
