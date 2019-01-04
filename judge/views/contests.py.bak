@@ -20,7 +20,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.html import escape, format_html
 from django.utils.timezone import make_aware
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import BaseDetailView, DetailView
 
@@ -68,7 +68,7 @@ class ContestListMixin(object):
 class ContestList(TitleMixin, ContestListMixin, ListView):
     model = Contest
     template_name = 'contest/list.html'
-    title = ugettext_lazy('Contests')
+    title = gettext_lazy('Contests')
 
     def get_queryset(self):
         return super(ContestList, self).get_queryset() \

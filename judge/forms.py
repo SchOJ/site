@@ -9,7 +9,7 @@ from django.core.validators import RegexValidator
 from django.db.models import Q
 from django.forms import ModelForm, CharField, TextInput, Form
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_ace import AceWidget
 from judge.models import Organization, Profile, Submission, PrivateMessage, Language

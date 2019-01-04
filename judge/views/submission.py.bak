@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.html import format_html, escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView
 
@@ -154,8 +154,8 @@ class SubmissionsListBase(DiggPaginatorMixin, TitleMixin, ListView):
     model = Submission
     paginate_by = 50
     show_problem = True
-    title = ugettext_lazy('All submissions')
-    content_title = ugettext_lazy('All submissions')
+    title = gettext_lazy('All submissions')
+    content_title = gettext_lazy('All submissions')
     tab = 'all_submissions_list'
     template_name = 'submission/list.html'
     context_object_name = 'submissions'

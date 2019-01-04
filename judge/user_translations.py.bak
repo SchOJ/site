@@ -38,8 +38,8 @@ if settings.USE_I18N:
         return result
 
 
-    def ugettext(message):
-        return do_translate(message, 'ugettext')
+    def gettext(message):
+        return do_translate(message, 'gettext')
 else:
-    def ugettext(message):
+    def gettext(message):
         return message

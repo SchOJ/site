@@ -11,12 +11,12 @@ from django.db.models.expressions import RawSQL
 from django.db.models.functions import Coalesce
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from judge.fulltext import SearchQuerySet
 from judge.models.profile import Profile, Organization
 from judge.models.runtime import Language
-from judge.user_translations import ugettext as user_ugettext
+from judge.user_translations import gettext as user_gettext
 from judge.utils.raw_sql import unique_together_left_join, RawSQLColumn
 
 __all__ = ['ProblemGroup', 'ProblemType', 'Problem', 'ProblemTranslation', 'ProblemClarification',
@@ -143,7 +143,7 @@ class Problem(models.Model):
 
     @cached_property
     def types_list(self):
-        return list(map(user_ugettext, list(map(attrgetter('full_name'), self.types.all()))))
+        return list(map(user_gettext, list(map(attrgetter('full_name'), self.types.all()))))
 
     def languages_list(self):
         return self.allowed_languages.values_list('common_name', flat=True).distinct().order_by('common_name')

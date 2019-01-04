@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import re
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django_jinja.builtins import DEFAULT_EXTENSIONS
 from jinja2 import select_autoescape
 
@@ -40,6 +40,7 @@ PYGMENT_THEME = 'pygment-github.css'
 INSTALLED_APPS = ()
 
 INSTALLED_APPS += (
+    'jet.dashboard',
     'jet',
     'django.contrib.admin',
     'judge',
@@ -251,8 +252,8 @@ EVENT_DAEMON_SUBMISSION_KEY = '6Sdmkx^%pk@GsifDfXcwX*Y7LRF%RGT8vmFpSxFBT$fwS7trc
 
 # Whatever you do, this better be one of the entries in `LANGUAGES`.
 LANGUAGE_CODE = 'en'
-TIME_ZONE = 'UTC'
-DEFAULT_USER_TIME_ZONE = 'America/Toronto'
+TIME_ZONE = 'Asia/Hong_Kong'
+DEFAULT_USER_TIME_ZONE = 'Asia/Hong_Kong'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -309,7 +310,7 @@ SOCIAL_AUTH_SLUGIFY_FUNCTION = 'judge.social_auth.slugify_username'
 JUDGE_AMQP_PATH = None
 
 try:
-    with open(os.path.join(os.path.dirname(__file__), 'local_settings.py')) as f:
-        exec(f, globals())
+    f = open(os.path.join(os.path.dirname(__file__), 'local_settings.py')).read()
+    exec(f, globals())
 except IOError:
     pass

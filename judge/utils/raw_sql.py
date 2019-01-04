@@ -11,7 +11,7 @@ from judge.utils.cachedict import CacheDict
 
 
 def unique_together_left_join(queryset, model, link_field_name, filter_field_name, filter_value, parent_model=None):
-    link_field = copy(model._meta.get_field(link_field_name).rel)
+    link_field = copy(model._meta.get_field(link_field_name).remote_field)
     filter_field = model._meta.get_field(filter_field_name)
 
     def restrictions(where_class, alias, related_alias):
@@ -55,4 +55,7 @@ straight_join_cache = CacheDict(make_straight_join_query)
 def use_straight_join(queryset):
     if connections[queryset.db].vendor != 'mysql':
         return
-    queryset.query = queryset.query.clone(straight_join_cache[type(queryset.query)])
+    # TODO: Understand what is this
+    x = queryset.query.clone()
+    x.__dict__.update(straight_join_cache)
+    queryset.query = x

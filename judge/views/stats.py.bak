@@ -5,7 +5,7 @@ from django.db.models import Count, Sum, Case, When, IntegerField, Value, FloatF
 from django.db.models.expressions import CombinedExpression
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from judge.models import Language, Submission
 

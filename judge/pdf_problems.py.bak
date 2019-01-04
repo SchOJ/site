@@ -8,7 +8,7 @@ import tempfile
 import uuid
 
 from django.conf import settings
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 
 HAS_PHANTOMJS = os.access(getattr(settings, 'PHANTOMJS', ''), os.X_OK)
 HAS_SLIMERJS = os.access(getattr(settings, 'SLIMERJS', ''), os.X_OK)
@@ -111,7 +111,7 @@ page.open(param.input, function (status) {
             'timeout': int(getattr(settings, 'PHANTOMJS_PDF_TIMEOUT', 5.0) * 1000),
             'input': 'input.html', 'output': 'output.pdf',
             'paper': getattr(settings, 'PHANTOMJS_PAPER_SIZE', 'Letter'),
-            'footer': ugettext('Page [page] of [topage]').encode('utf-8'),
+            'footer': gettext('Page [page] of [topage]').encode('utf-8'),
         }))
 
     def make(self, debug=False):
@@ -163,7 +163,7 @@ try {
             'zoom': getattr(settings, 'SLIMERJS_PDF_ZOOM', 0.75),
             'input': 'input.html', 'output': 'output.pdf',
             'paper': getattr(settings, 'SLIMERJS_PAPER_SIZE', 'Letter'),
-            'footer': ugettext('Page [page] of [topage]').replace('[page]', '&P')
+            'footer': gettext('Page [page] of [topage]').replace('[page]', '&P')
                 .replace('[topage]', '&L').encode('utf-8'),
         }))
 

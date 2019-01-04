@@ -2,7 +2,7 @@ from collections import defaultdict
 from operator import itemgetter
 
 import pytz
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 def make_timezones():

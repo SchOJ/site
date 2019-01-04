@@ -22,7 +22,7 @@ from django.utils import translation, timezone
 from django.utils.functional import cached_property
 from django.utils.html import format_html, escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, View
 from django.views.generic.base import TemplateResponseMixin
@@ -272,7 +272,7 @@ class ProblemPdfView(ProblemMixin, SingleObjectMixin, View):
 
 class ProblemList(QueryStringSortMixin, TitleMixin, SolvedProblemMixin, ListView):
     model = Problem
-    title = ugettext_lazy('Problems')
+    title = gettext_lazy('Problems')
     context_object_name = 'problems'
     template_name = 'problem/list.html'
     paginate_by = 50
