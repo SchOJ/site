@@ -32,7 +32,7 @@
                     <form action="{{ url('contest_join', contest.key) }}" method="post"
                           class="contest-join-pseudotab unselectable button full">
                         {% csrf_token %}
-                        <input type="submit" value="{{ _('Virtual join') }}">
+                        <input type="submit" class="ui button" value="{{ _('Virtual join') }}">
                     </form>
                 {% endif %}
             {% else %}
