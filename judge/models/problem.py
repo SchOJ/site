@@ -3,12 +3,13 @@ from operator import attrgetter
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models import CASCADE
 from django.db.models import F, QuerySet
 from django.db.models.expressions import RawSQL
 from django.db.models.functions import Coalesce
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
@@ -105,7 +106,7 @@ class Problem(models.Model):
                                      help_text=_(
                                          'These users will be able to view a private problem, but not edit it.'))
     types = models.ManyToManyField(ProblemType, verbose_name=_('problem types'))
-    group = models.ForeignKey(ProblemGroup, verbose_name=_('problem group'))
+    group = models.ForeignKey(ProblemGroup, verbose_name=_('problem group'), on_delete=CASCADE)
     time_limit = models.FloatField(verbose_name=_('time limit'), help_text=_('The time limit for this problem, in seconds. Fractional seconds (e.g. 1.5) are supported.'))
     memory_limit = models.IntegerField(verbose_name=_('memory limit'), help_text=_('The memory limit for this problem, in kilobytes (e.g. 64mb = 65536 kilobytes).'))
     short_circuit = models.BooleanField(default=False)
@@ -142,7 +143,7 @@ class Problem(models.Model):
 
     @cached_property
     def types_list(self):
-        return map(user_ugettext, map(attrgetter('full_name'), self.types.all()))
+        return list(map(user_ugettext, list(map(attrgetter('full_name'), self.types.all()))))
 
     def languages_list(self):
         return self.allowed_languages.values_list('common_name', flat=True).distinct().order_by('common_name')
@@ -260,7 +261,7 @@ class Problem(models.Model):
         limit_ids = set(limits.keys())
         common = []
 
-        for cn, ids in Language.get_common_name_map().iteritems():
+        for cn, ids in Language.get_common_name_map().items():
             if ids - limit_ids:
                 continue
             limit = set(limits[id][1] for id in ids)
@@ -270,7 +271,7 @@ class Problem(models.Model):
                 for id in ids:
                     del limits[id]
 
-        limits = limits.values() + common
+        limits = list(limits.values()) + common
         limits.sort()
         return limits
 
@@ -321,7 +322,7 @@ class Problem(models.Model):
 
 
 class ProblemTranslation(models.Model):
-    problem = models.ForeignKey(Problem, verbose_name=_('problem'), related_name='translations')
+    problem = models.ForeignKey(Problem, verbose_name=_('problem'), related_name='translations', on_delete=CASCADE)
     language = models.CharField(verbose_name=_('language'), max_length=7, choices=settings.LANGUAGES)
     name = models.CharField(verbose_name=_('translated name'), max_length=100, db_index=True)
     description = models.TextField(verbose_name=_('translated description'))
@@ -333,14 +334,14 @@ class ProblemTranslation(models.Model):
 
 
 class ProblemClarification(models.Model):
-    problem = models.ForeignKey(Problem, verbose_name=_('clarified problem'))
+    problem = models.ForeignKey(Problem, verbose_name=_('clarified problem'), on_delete=CASCADE)
     description = models.TextField(verbose_name=_('clarification body'))
     date = models.DateTimeField(verbose_name=_('clarification timestamp'), auto_now_add=True)
 
 
 class LanguageLimit(models.Model):
-    problem = models.ForeignKey(Problem, verbose_name=_('problem'), related_name='language_limits')
-    language = models.ForeignKey(Language, verbose_name=_('language'))
+    problem = models.ForeignKey(Problem, verbose_name=_('problem'), related_name='language_limits', on_delete=CASCADE)
+    language = models.ForeignKey(Language, verbose_name=_('language'), on_delete=CASCADE)
     time_limit = models.FloatField(verbose_name=_('time limit'))
     memory_limit = models.IntegerField(verbose_name=_('memory limit'))
 

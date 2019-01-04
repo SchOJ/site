@@ -2,10 +2,10 @@ from operator import attrgetter
 
 from django import forms
 from django.contrib import admin
-from django.core.urlresolvers import reverse_lazy
 from django.db import connection
 from django.db.models import Q
 from django.forms import ModelForm
+from django.urls import reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import ugettext, ungettext, ugettext_lazy as _
 from reversion.admin import VersionAdmin
@@ -168,7 +168,7 @@ class ProblemAdmin(VersionAdmin):
     show_authors.short_description = _('Authors')
 
     def show_public(self, obj):
-        return format_html(u'<a href="{1}">{0}</a>', ugettext('View on site'), obj.get_absolute_url())
+        return format_html('<a href="{1}">{0}</a>', ugettext('View on site'), obj.get_absolute_url())
 
     show_public.short_description = ''
 

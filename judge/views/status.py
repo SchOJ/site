@@ -40,8 +40,8 @@ class LatestList(list):
 
 
 def compare_version_list(x, y):
-    keys = x.keys()
-    if keys != y.keys():
+    keys = list(x.keys())
+    if keys != list(y.keys()):
         return False
     for k in keys:
         if len(x[k]) != len(y[k]):
@@ -77,7 +77,7 @@ def version_matrix(request):
             matrix[judge] = data
             continue
 
-        ds = range(len(data))
+        ds = list(range(len(data)))
         size = [1] * len(data)
         for i, (p, x) in enumerate(data):
             if ds[i] != i:
@@ -88,7 +88,7 @@ def version_matrix(request):
                     size[i] += 1
                     size[j] = 0
 
-        rep = max(xrange(len(data)), key=size.__getitem__)
+        rep = max(range(len(data)), key=size.__getitem__)
         matrix[group] = data[rep][1]
         for i, (j, x) in enumerate(data):
             if ds[i] != rep:

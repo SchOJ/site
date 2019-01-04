@@ -6,12 +6,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Count, Max, Q
 from django.forms import Form, modelformset_factory
 from django.http import Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
-from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.translation import ugettext as _, ugettext_lazy, ungettext
 from django.views.generic import DetailView, ListView, View, UpdateView, FormView
 from django.views.generic.detail import SingleObjectMixin, SingleObjectTemplateResponseMixin

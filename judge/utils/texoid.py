@@ -1,12 +1,14 @@
 import hashlib
-import logging
-import urllib2
-from contextlib import closing
-from urllib import urlencode
 import json
+import logging
+import urllib.error
+import urllib.parse
+import urllib.request
+from contextlib import closing
+from urllib.parse import urlencode
 
-from django.core.cache import caches
 from django.conf import settings
+from django.core.cache import caches
 
 from judge.utils.file_cache import HashFileCache
 
@@ -27,10 +29,10 @@ class TexoidRenderer(object):
         self.cache.create(hash)
 
         try:
-            request = urllib2.urlopen(settings.TEXOID_URL, urlencode({
+            request = urllib.request.urlopen(settings.TEXOID_URL, urlencode({
                 'q': formula
             }))
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             with closing(e):
                 if e.code == 400:
                     logger.error('Texoid failed to render: %s\n%s', formula, e.read())

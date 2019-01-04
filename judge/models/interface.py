@@ -1,8 +1,9 @@
 import re
 
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import CASCADE
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from mptt.fields import TreeForeignKey
@@ -45,7 +46,8 @@ class NavigationBar(MPTTModel):
     label = models.CharField(max_length=20, verbose_name=_('label'))
     path = models.CharField(max_length=255, verbose_name=_('link path'))
     regex = models.TextField(verbose_name=_('highlight regex'), validators=[validate_regex])
-    parent = TreeForeignKey('self', verbose_name=_('parent item'), null=True, blank=True, related_name='children')
+    parent = TreeForeignKey('self', verbose_name=_('parent item'), null=True, blank=True, related_name='children',
+                            on_delete=CASCADE)
 
     def __unicode__(self):
         return self.label

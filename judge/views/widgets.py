@@ -1,5 +1,7 @@
 import json
-import urllib2
+import urllib.error
+import urllib.parse
+import urllib.request
 from contextlib import closing
 
 from django.conf import settings
@@ -43,9 +45,10 @@ class DetectTimezone(View):
     def askgeo(self, lat, long):
         if not hasattr(settings, 'ASKGEO_ACCOUNT_ID') or not hasattr(settings, 'ASKGEO_ACCOUNT_API_KEY'):
             raise ImproperlyConfigured()
-        with closing(urllib2.urlopen('http://api.askgeo.com/v1/%s/%s/query.json?databases=TimeZone&points=%f,%f' %
-                                             (settings.ASKGEO_ACCOUNT_ID, settings.ASKGEO_ACCOUNT_API_KEY, lat,
-                                              long))) as f:
+        with closing(
+                urllib.request.urlopen('http://api.askgeo.com/v1/%s/%s/query.json?databases=TimeZone&points=%f,%f' %
+                                       (settings.ASKGEO_ACCOUNT_ID, settings.ASKGEO_ACCOUNT_API_KEY, lat,
+                                        int))) as f:
             data = json.load(f)
             try:
                 return HttpResponse(data['data'][0]['TimeZone']['TimeZoneId'], content_type='text/plain')
@@ -55,8 +58,8 @@ class DetectTimezone(View):
     def geonames(self, lat, long):
         if not hasattr(settings, 'GEONAMES_USERNAME'):
             raise ImproperlyConfigured()
-        with closing(urllib2.urlopen('http://api.geonames.org/timezoneJSON?lat=%f&lng=%f&username=%s' %
-                                             (lat, long, settings.GEONAMES_USERNAME))) as f:
+        with closing(urllib.request.urlopen('http://api.geonames.org/timezoneJSON?lat=%f&lng=%f&username=%s' %
+                                            (lat, int, settings.GEONAMES_USERNAME))) as f:
             data = json.load(f)
             try:
                 return HttpResponse(data['timezoneId'], content_type='text/plain')
@@ -69,10 +72,10 @@ class DetectTimezone(View):
     def get(self, request, *args, **kwargs):
         backend = getattr(settings, 'TIMEZONE_DETECT_BACKEND', None)
         try:
-            lat, long = float(request.GET['lat']), float(request.GET['long'])
+            lat, int = float(request.GET['lat']), float(request.GET['long'])
         except (ValueError, KeyError):
             return HttpResponse(_('Bad latitude or longitude'), content_type='text/plain', status=404)
         return {
             'askgeo': self.askgeo,
             'geonames': self.geonames,
-        }.get(backend, self.default)(lat, long)
+        }.get(backend, self.default)(lat, int)

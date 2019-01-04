@@ -1,7 +1,8 @@
+import errno
 import os
 
-import errno
 from django.db import models
+from django.db.models import CASCADE
 from django.utils.translation import ugettext_lazy as _
 
 from judge.utils.problem_data import ProblemDataStorage
@@ -31,7 +32,7 @@ CHECKERS = (
 
 
 class ProblemData(models.Model):
-    problem = models.OneToOneField('Problem', verbose_name=_('problem'), related_name='data_files')
+    problem = models.OneToOneField('Problem', verbose_name=_('problem'), related_name='data_files', on_delete=CASCADE)
     zipfile = models.FileField(verbose_name=_('data zip file'), storage=problem_data_storage, null=True, blank=True,
                                upload_to=problem_directory_file)
     generator = models.FileField(verbose_name=_('generator file'), storage=problem_data_storage, null=True, blank=True,
@@ -72,7 +73,7 @@ class ProblemData(models.Model):
 
 
 class ProblemTestCase(models.Model):
-    dataset = models.ForeignKey('Problem', verbose_name=_('problem data set'), related_name='cases')
+    dataset = models.ForeignKey('Problem', verbose_name=_('problem data set'), related_name='cases', on_delete=CASCADE)
     order = models.IntegerField(verbose_name=_('case position'))
     type = models.CharField(max_length=1, verbose_name=_('case type'),
                             choices=(('C', _('Normal case')),

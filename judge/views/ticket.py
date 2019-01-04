@@ -103,7 +103,7 @@ class NewProblemTicketView(TitleMixin, NewTicketView):
 
     def get_content_title(self):
         return mark_safe(escape(_('New ticket for %s')) %
-                         format_html(u'<a href="{0}">{1}</a>', reverse('problem_detail', args=[self.object.code]),
+                         format_html('<a href="{0}">{1}</a>', reverse('problem_detail', args=[self.object.code]),
                                      self.object.translated_name(self.request.LANGUAGE_CODE)))
 
 
