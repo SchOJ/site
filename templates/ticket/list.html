@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block media %}
     <style>
+        #btnSubmit {
+            margin-top: 10px;
+        }
+        
         #ticket-list .fa-check-circle-o {
             color: #00a900;
         }
@@ -229,7 +233,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" style="margin-left: auto" class="submit">{{ _('Go') }}</button>
+                    <button id="btnSubmit" class="ui button" type="submit">{{ _('Go') }}</button>
                 </form>
             </div>
         </aside>
