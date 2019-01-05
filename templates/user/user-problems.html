@@ -23,6 +23,21 @@
     </script>
 {% endblock %}
 
+{% block media %}
+.sub-result {
+    text-align: center !important;
+    width: 15%;
+}
+
+.pp {
+    font-size: 120%;
+}
+
+.pp-weighted {
+    font-size: 90%;
+}
+{% endblock %}
+
 {% block title_ruler %}{% endblock %}
 
 {% block title_row %}
@@ -33,7 +48,7 @@
 {% block user_content %}
     {% if pp_breakdown %}
         <h3 class="pp-breakdown-header">{{ _('Points Breakdown') }}</h3>
-        <table id="submissions-table" class="pp-table table">
+        <table id="submissions-table" class="ui celled table">
             <colgroup>
                 <col class="sub-result">
                 <col class="sub-info">
@@ -53,9 +68,9 @@
     {% if authored %}
         <div class="user-problem-group">
             <h3 class="unselectable toggle closed">
-                <span class="fa fa-chevron-right fa-fw"></span>{{ _('Authored Problems') }} ({{ authored|length }})
+                <span class="icon chevron right"></span>{{ _('Authored Problems') }} ({{ authored|length }})
             </h3>
-            <table style="display: none" class="table toggled">
+            <table style="display: none" class="ui celled table">
                 <thead>
                 <tr>
                     <th>{{ _('Problem') }}</th>
@@ -97,7 +112,7 @@
             <h3 class="unselectable toggle closed"><span class="fa fa-chevron-right fa-fw"></span>
                 {{ group.name }} ({{ _('%(points).1f points', points=group.points) }})
             </h3>
-            <table style="display: none" class="table toggled">
+            <table style="display: none" class="ui celled table">
                 <thead>
                 <tr>
                     <th>{{ _('Problem') }}</th>
