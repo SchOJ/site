@@ -28,15 +28,10 @@
                 $('pre code').each(function () {
                     $(this).parent().before($('<div>', {'class': 'copy-clipboard'})
                         .append(copyButton = $('<span>', {
-                            'class': 'btn-clipboard',
+                            'class': 'ui right floated tiny grey button',
                             'data-clipboard-text': $(this).text(),
                             'title': 'Click to copy'
                         }).text('Copy')));
-
-                    $(copyButton.get(0)).mouseleave(function () {
-                        $(this).attr('class', 'btn-clipboard');
-                        $(this).removeAttr('aria-label');
-                    });
 
                     var curClipboard = new Clipboard(copyButton.get(0));
 
