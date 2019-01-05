@@ -5,11 +5,24 @@
     {{ form.media.css }}
     <style>
         .ui.grid .column {
-            width: 50%
+            width: 50% !important;
         }
         
         footer {
             clear: both;
+        }
+
+        .sortedm2m-container, .selector-filter {
+            width: 100% !important;
+        }
+
+        #center_main {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
         }
     </style>
 {% endblock %}
@@ -35,7 +48,7 @@
 {% endblock %}
 
 {% block body %}
-    <div id="center-float">
+    <div id="center_main">
         <form id="edit-form" action="" method="post" class="ui form">
             {% if form.errors %}
                 <div class="ui negative message">
