@@ -70,7 +70,7 @@
     {% if authored %}
         <div class="user-problem-group">
             <h3 class="unselectable toggle closed">
-                <span class="icon chevron right"></span>{{ _('Authored Problems') }} ({{ authored|length }})
+                <i class="icon chevron right"></i>{{ _('Authored Problems') }} ({{ authored|length }})
             </h3>
             <table style="display: none" class="ui celled table toggled">
                 <thead>
@@ -111,7 +111,7 @@
 
     {% for group in best_submissions %}
         <div class="user-problem-group">
-            <h3 class="unselectable toggle closed"><span class="icon chevron right"></span>
+            <h3 class="unselectable toggle closed"><i class="icon chevron right"></i>
                 {{ group.name }} ({{ _('%(points).1f points', points=group.points) }})
             </h3>
             <table style="display: none" class="ui celled table toggled">
