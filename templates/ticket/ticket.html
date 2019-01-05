@@ -66,30 +66,6 @@
             font-style: italic;
         }
 
-        .close-ticket {
-            display: block;
-            width: 100%;
-            background: linear-gradient(to bottom, #4bad00 0%, #278811 100%);
-            border-color: #24710e;
-            font-weight: 600;
-        }
-
-        .close-ticket:hover {
-            background: #24710e;
-        }
-
-        .open-ticket {
-            display: block;
-            width: 100%;
-            background: linear-gradient(to bottom, #ff130f, #b03d17);
-            border-color: #853011;
-            font-weight: 600;
-        }
-
-        .open-ticket:hover {
-            background: #853011;
-        }
-
         a.edit-notes {
             float: right;
         }
@@ -311,9 +287,9 @@
                     </div>
                 </div>
 
-                <button data-ajax="{{ url('ticket_close', ticket.id) }}" data-open="0" class="close-ticket"
+                <button class="ui button" data-ajax="{{ url('ticket_close', ticket.id) }}" data-open="0" class="close-ticket"
                         {% if not ticket.is_open %}style="display: none"{% endif %}>{{ _('Close ticket') }}</button>
-                <button data-ajax="{{ url('ticket_open', ticket.id) }}" data-open="1" class="open-ticket"
+                <button class="ui button" data-ajax="{{ url('ticket_open', ticket.id) }}" data-open="1" class="open-ticket"
                         {% if ticket.is_open %}style="display: none"{% endif %}>{{ _('Reopen ticket') }}</button>
 
                 {% if perms.judge.change_ticket or request.user.profile in assignees %}
