@@ -26,6 +26,7 @@
 
                 var copyButton;
                 $('pre code').each(function () {
+                    let $this = $(this);
                     $(this).parent().before($('<div>', {'class': 'copy-clipboard'})
                         .append(copyButton = $('<span>', {
                             'class': 'ui right floated tiny grey button',
@@ -37,11 +38,21 @@
 
                     curClipboard.on('success', function (e) {
                         e.clearSelection();
-                        showTooltip(e.trigger, 'Copied!');
+                        $this.text('Copied!')
+                            .class('ui right floated tiny green button');
+                        setTimeout( () => {
+                            $this.text('Copy') 
+                                .class('ui right floated tiny grey button')
+                        },1000 );
                     });
 
                     curClipboard.on('error', function (e) {
-                        showTooltip(e.trigger, fallbackMessage(e.action));
+                        $this.text( fallbackMessage(e.action) )
+                            .class('ui right floated tiny red button');
+                        setTimeout( () => {
+                            $this.text('Copy') 
+                                .class('ui right floated tiny grey button')
+                        },1000 );
                     });
 
                 });
