@@ -56,6 +56,11 @@
         footer {
             text-align: center;
         }
+        #contest-info {
+            text-align: center;
+            background: gainsboro;
+            line-height: 200%;
+        }
     </style>
     {% if PYGMENT_THEME %}
     <link rel="stylesheet" href="{{ static(PYGMENT_THEME) }}">
@@ -286,7 +291,7 @@
     </nav>
     {% if request.in_contest %}
     <div id="contest-info">
-        <a href="{{ url('contest_view', request.participation.contest.key) }}" style="vertical-align: middle">
+        <a href="{{ url('contest_view', request.participation.contest.key) }}">
             {{ request.participation.contest.name }} -
             {% if request.participation.spectate %}
             {{ _('spectating') }}
