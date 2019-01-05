@@ -132,13 +132,13 @@
                                 {% if request.user.profile in contest.organizers.all() %}
                                     <form action="{{ url('contest_join', contest.key) }}" method="post">
                                         {% csrf_token %}
-                                        <input type="submit" class="unselectable button full participate-button"
+                                        <input type="submit" class="unselectable ui button full participate-button"
                                                value="{{ _('Spectate') }}">
                                     </form>
                                 {% else %}
                                     <form action="{{ url('contest_join', contest.key) }}" method="post">
                                         {% csrf_token %}
-                                        <input type="submit" class="unselectable button full participate-button join-warning"
+                                        <input type="submit" class="unselectable ui button full participate-button join-warning"
                                                value="{{ _('Join') }}">
                                     </form>
                                 {% endif %}
