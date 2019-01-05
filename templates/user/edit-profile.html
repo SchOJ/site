@@ -4,53 +4,12 @@
     {% include "timezone/media-css.html" %}
     {{ form.media.css }}
     <style>
-        .sortedm2m-container, .sortedm2m-container p.selector-filter {
-            width: 300px;
+        .ui.grid .column {
+            width: 50%
         }
-
-        .sortedm2m-container p.selector-filter input {
-            width: 262px;
-        }
-
-        ul.sortedm2m {
-            width: 284px;
-            min-height: 70px;
-            max-height: 200px;
-            height: 70px
-        }
-
-        .grayed {
-            color: #666;
-        }
-
-        .inline-header {
-            float: left;
-            font-size: 1.1em;
-            padding: 4px 8px;
-            padding-left: 0;
-        }
-
-        .block-header {
-            color: #666;
-            font-size: 1.1em;
-        }
-
-        .fullwidth {
-            display: block;
-            overflow: hidden;
-        }
-
-        #edit-form {
-            border: unset;
-            background: unset;
-            max-width: 700px;
-        }
-
-        #center-float {
-            position: relative;
-            margin: 0 auto auto -28.5em;
-            left: 50%;
-            width: 700px;
+        
+        footer {
+            clear: both;
         }
     </style>
 {% endblock %}
@@ -101,42 +60,41 @@
 
             <div class="ui grid">
                 <div class="column">
-                    <table style="padding-right:0.8em">
+                    <table>
                         <tr title="{{ _('Select your closest major city') }}">
-                            <td><label class="inline-header grayed">{{ _('Timezone') }}:</label></td>
+                            <td><label>{{ _('Timezone') }}:</label></td>
                             <td><span class="fullwidth">{{ form.timezone }}</span></td>
                         </tr>
                         <tr>
-                            <td><label class="inline-header grayed">{{ _('Preferred language') }}:</label></td>
+                            <td><label>{{ _('Preferred language') }}:</label></td>
                             <td><span class="fullwidth">{{ form.language }}</span></td>
                         </tr>
                         <tr>
-                            <td><label class="inline-header grayed">{{ _('Editor theme') }}:</label></td>
+                            <td><label>{{ _('Editor theme') }}:</label></td>
                             <td><span class="fullwidth">{{ form.ace_theme }}</span></td>
                         </tr>
                         {% if has_math_config %}
                             <tr>
-                                <td><label class="inline-header grayed">{{ _('Math engine') }}:</label></td>
+                                <td><label>{{ _('Math engine') }}:</label></td>
                                 <td><span class="fullwidth">{{ form.math_engine }}</span></td>
                             </tr>
                         {% endif %}
                         {% if form.newsletter %}
                             <tr>
                                 <td colspan="2">
-                                    {{ form.newsletter }}
-                                    <label for="id_newsletter" style="float: unset" class="inline-header grayed">
-                                        {{- _('Notify me about upcoming contests') -}}
-                                    </label>
+                                    <div class="ui checkbox">
+                                            {{ form.newsletter }}
+                                        <label>{{- _('Notify me about upcoming contests') -}}</label>
+                                    </div>
                                 </td>
                             </tr>
                         {% endif %}
                         <tr>
                             <td colspan="2">
                                 <div class="ui checkbox">
-                                    <input name="test_site" type="checkbox">
-                                    {{ str(form.test_site) }}
+                                    {{ form.test_site }}
                                     <label>{{- form.test_site.label -}}</label>
-                                  </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -155,18 +113,16 @@
                         <tr>
                             <td colspan="2"><span class="inline-header">
                                 {% if profile.is_totp_enabled %}
-                                    {{ _('Two Factor Authentication is enabled.') }}
-                                    <a href="{{ url('disable_2fa') }}" class="ui button">Disable</a>
+                                    {{ _('Two Factor Authentication is enabled.') }} <a href="{{ url('disable_2fa') }}" >Disable</a>
                                 {% else %}
-                                    {{ _('Two Factor Authentication is disabled.') }}
-                                    <a href="{{ url('enable_2fa') }}" class="ui button">Enable</a>
+                                    {{ _('Two Factor Authentication is disabled.') }} <a href="{{ url('enable_2fa') }}">Enable</a>
                                 {% endif %}
                             </span></td>
                         </tr>
                     </table>
                 </div>
                 <div class="column">
-                    <div class="block-header">
+                    <div>
                         {{ _('Affiliated organizations') }}:
                     </div>
                     {{ form.organizations }}
