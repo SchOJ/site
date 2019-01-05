@@ -292,9 +292,9 @@
     {% if request.in_contest %}
     <div id="contest-info">
         <a href="{{ url('contest_view', request.participation.contest.key) }}">
-            {{ request.participation.contest.name }} -
+            {{ request.participation.contest.name }} 
             {% if request.participation.spectate %}
-            {{ _('spectating') }}
+            - {{ _('spectating') }}
             {% elif request.participation.end_time %}
             <div id="contest-time-remaining" data-secs="{{ request.participation.time_remaining|seconds }}">
                 {{ request.participation.time_remaining|timedelta("localized") }}
