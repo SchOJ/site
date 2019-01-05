@@ -19,7 +19,8 @@ class SizedPacketHandler(Handler):
         return data
 
     def _recv_data(self, data):
-        self._buffer += data
+        # TODO: FUCK!!!
+        self._buffer = self._buffer + data.decode("utf-8", "ignore")
         while len(self._buffer) >= self._packetlen if self._packetlen else len(self._buffer) >= size_pack.size:
             if self._packetlen:
                 data = self._buffer[:self._packetlen]
@@ -29,7 +30,7 @@ class SizedPacketHandler(Handler):
             else:
                 data = self._buffer[:size_pack.size]
                 self._buffer = self._buffer[size_pack.size:]
-                self._packetlen = size_pack.unpack(data)[0]
+                self._packetlen = size_pack.unpack(data.encode())[0]
 
     def send(self, data, callback=None):
         data = self._format_send(data)

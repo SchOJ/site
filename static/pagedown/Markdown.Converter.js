@@ -251,8 +251,8 @@ else
             // "paragraphs" that are wrapped in non-block-level tags, such as anchors,
             // phrase emphasis, and spans. The list of tags we're looking for is
             // hard-coded:
-            var block_tags_a = "p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math|ins|del"
-            var block_tags_b = "p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math"
+            var block_tags_a = "p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math|ins|del";
+            var block_tags_b = "p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math";
 
             // First, look for nested blocks, e.g.:
             //   <div>
@@ -1051,10 +1051,10 @@ else
         function _DoItalicsAndBold(text) {
 
             // <strong> must go first:
-            text = text.replace(/([\W_]|^)(\*\*|__)(?=\S)([^\r]*?\S[\*_]*)\2([\W_]|$)/g,
+            text = text.replace(/(\W|^)(\*\*)(?=\S)([^\r]*?\S\**)\2(\W|$)/g,
             "$1<strong>$3</strong>$4");
 
-            text = text.replace(/([\W_]|^)(\*|_)(?=\S)([^\r\*_]*?\S)\2([\W_]|$)/g,
+            text = text.replace(/(\W|^)(\*)(?=\S)([^\r\*]*?\S)\2(\W|$)/g,
             "$1<em>$3</em>$4");
 
             return text;
@@ -1137,7 +1137,7 @@ else
                 else if (/\S/.test(str)) {
                     str = _RunSpanGamut(str);
                     str = str.replace(/^([ \t]*)/g, "<p>");
-                    str += "</p>"
+                    str += "</p>";
                     grafsOut.push(str);
                 }
 
@@ -1205,8 +1205,10 @@ else
             text = text.replace(/(^|\s)(https?|ftp)(:\/\/[-A-Z0-9+&@#\/%?=~_|\[\]\(\)!:,\.;]*[-A-Z0-9+&@#\/%=~_|\[\]])($|\W)/gi, "$1<$2$3>$4");
 
             //  autolink anything like <http://example.com>
-            
-            var replacer = function (wholematch, m1) { return "<a href=\"" + m1 + "\">" + pluginHooks.plainLinkText(m1) + "</a>"; }
+
+            var replacer = function (wholematch, m1) {
+                return "<a href=\"" + m1 + "\">" + pluginHooks.plainLinkText(m1) + "</a>";
+            };
             text = text.replace(/<((https?|ftp):[^'">\s]+)>/gi, replacer);
 
             // Email addresses: <address@domain.foo>
@@ -1257,7 +1259,7 @@ else
             text = text.replace(/^(\t|[ ]{1,4})/gm, "~0"); // attacklab: g_tab_width
 
             // attacklab: clean up hack
-            text = text.replace(/~0/g, "")
+            text = text.replace(/~0/g, "");
 
             return text;
         }

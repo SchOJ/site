@@ -117,3 +117,5 @@ def math_setting(request):
     if engine == 'auto':
         engine = 'mml' if bool(getattr(settings, 'MATHOID_URL', False)) else 'jax'
     return {'MATH_ENGINE': engine, 'REQUIRE_JAX': engine == 'jax', 'caniuse': True}
+
+# TODO: Fix CANIUSE

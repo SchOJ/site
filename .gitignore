@@ -13,3 +13,4 @@ resources/table.css
 sass_processed
 venv/
 *.py.bak
+bridgelog.log
