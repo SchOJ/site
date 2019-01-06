@@ -26,6 +26,6 @@
     {% if page_obj.has_next() %}
         <a class="item" href="{{ page_prefix or '' }}{{ page_obj.next_page_number() }}{{ page_suffix or '' }}">»</a>
     {% else %}
-        <a class="disabled item">»</div>
+        <div class="disabled item">»</div>
     {% endif %}
 </div>
