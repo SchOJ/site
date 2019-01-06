@@ -25,10 +25,10 @@
                   class="downvote-link fa fa-chevron-down fa-fw"></a>
                 {% endif %}
                 </div>
-                <div class="thirteen wide column">
+                <div class="twelve wide column">
                     {% with author=node.author, user=node.author.user %}
                     <a href="{{ url('user_page', user.username) }}">
-                      <img src="{{ gravatar(author, 135) }}" class="ui medium image">
+                      <img src="{{ gravatar(author, 90) }}" class="ui medium image">
                     </a>
                     {% endwith %}
                 </div>
