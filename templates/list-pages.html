@@ -1,3 +1,4 @@
+<div style="text-align: center">
 <div class="ui pagination menu">
     {% if page_obj.has_previous() %}
         {% if page_obj.previous_page_number() == 1 and first_page_href != None %}
@@ -28,4 +29,5 @@
     {% else %}
         <div class="disabled item">»</div>
     {% endif %}
+</div>
 </div>
