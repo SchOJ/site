@@ -14,16 +14,18 @@
         <form action="" method="post">
             {% csrf_token %}
             {{ formset.management_form }}
-            <table>
-                <tr>
-                    <th>{{ _('User') }}</th>
-                    <th>{{ _('Time') }}</th>
-                    <th>{{ _('State') }}</th>
-                    <th>{{ _('Reason') }}</th>
-                    {% if formset.can_delete %}
-                        <th>{{ _('Delete?') }}</th>
-                    {% endif %}
-                </tr>
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th>{{ _('User') }}</th>
+                        <th>{{ _('Time') }}</th>
+                        <th>{{ _('State') }}</th>
+                        <th>{{ _('Reason') }}</th>
+                        {% if formset.can_delete %}
+                            <th>{{ _('Delete?') }}</th>
+                        {% endif %}
+                    </tr>
+                </thead>
                 {% for form in formset %}
                     <tr id="request-{{ form.instance.id }}">
                         <td>{{ form.id }}{{ link_user(form.instance.user) }}</td>
