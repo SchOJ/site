@@ -61,7 +61,7 @@
                 }).done(function (body) {
                     $comment.find('.previous-revision').css({visibility: show_revision == 0 ? 'hidden' : ''});
                     $comment.find('.next-revision').css({visibility: show_revision == max_revision ? 'hidden' : ''});
-                    $comment.find('.content').html(body);
+                    $comment.find('.comment-body').html(body);
 
                     var edit_text = '{{ _('edit {edits}') }}'.replace("{edits}", show_revision);
 
