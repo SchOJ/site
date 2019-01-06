@@ -9,26 +9,26 @@
 {% endblock %}
 
 {% block header %}
-    {% if perms.judge.change_blogpost %}
+    <div id="postInfo">
+        {% with authors=post.authors.all() %}
+            {% if authors %}
+                <span class="post-authors">{{ link_users(authors) }}</span>
+            {% endif %}
+        {% endwith %}
+        <span class="post-time">
+            {% trans time=post.publish_on|date(_("N j, Y, g:i a")) %}
+                posted on {{ time }}
+            {% endtrans %}
+        </span>
+        {% if perms.judge.change_blogpost %}
         <div class="title-line-action">[<a href="{{ url('admin:judge_blogpost_change', post.id) }}">{{ _('Edit') }}</a>]
         </div>
-    {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block body %}
     <div class="post-full">
-        <div class="time">
-            {% with authors=post.authors.all() %}
-                {% if authors %}
-                    <span class="post-authors">{{ link_users(authors) }}</span>
-                {% endif %}
-            {% endwith %}
-            <span class="post-time">
-                {% trans time=post.publish_on|date(_("N j, Y, g:i a")) %}
-                    posted on {{ time }}
-                {% endtrans %}
-            </span>
-        </div>
         <div class="body content-description">
             {% cache 86400 'post_content' post.id MATH_ENGINE %}
                 {{ post.content|markdown('blog', MATH_ENGINE)|reference|str|safe}}
