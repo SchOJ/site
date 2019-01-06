@@ -78,7 +78,7 @@
             </table>
 
             {% if page_obj and page_obj.num_pages > 1 %}
-                <div style="margin-top:10px;">{% include "list-pages.html" %}</div>
+                {% include "list-pages.html" %}
             {% endif %}
         </div>
     </div>

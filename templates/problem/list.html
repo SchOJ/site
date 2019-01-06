@@ -158,9 +158,7 @@
 
         <div class="twelve wide column problems">
             {% if page_obj.num_pages > 1 %}
-                <div style="margin-bottom: 7px; margin-top: 3px;">
                     {% include "list-pages.html" %}
-                </div>
             {% endif %}
 
             <table id="problem-table" class="ui celled table">
@@ -270,7 +268,7 @@
                 </tbody>
             </table>
             {% if page_obj.num_pages > 1 %}
-                <div style="margin-top:10px;">{% include "list-pages.html" %}</div>
+                {% include "list-pages.html" %}
             {% endif %}
         </div>
 

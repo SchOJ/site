@@ -240,7 +240,7 @@
 
         <main>
             {% if page_obj.num_pages > 1 %}
-                <div style="margin-bottom:6px; margin-top:3px">{% include "list-pages.html" %}</div>
+                {% include "list-pages.html" %}
             {% endif %}
             <table id="ticket-list" class="table">
                 <thead>
@@ -259,7 +259,7 @@
                 </tbody>
             </table>
             {% if page_obj.num_pages > 1 %}
-                <div style="margin-top:10px">{% include "list-pages.html" %}</div>
+                {% include "list-pages.html" %}
             {% endif %}
         </main>
     </div>

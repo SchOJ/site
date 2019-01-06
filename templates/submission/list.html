@@ -280,9 +280,7 @@
     <div class="ui stackable grid">
         <div id="content-left" class="submission twelve wide column">
             {% if page_obj.num_pages > 1 %}
-            <div style="text-align: center">
                 {% include "list-pages.html" %}
-            </div>
             {% endif %}
 
             <div class="ws-closed">
@@ -307,7 +305,7 @@
                 {% endfor %}
             </table>
             {% if page_obj.num_pages > 1 %}
-            <div style="margin-top:10px;">{% include "list-pages.html" %}</div>
+                {% include "list-pages.html" %}
             {% endif %}
         </div>
 
