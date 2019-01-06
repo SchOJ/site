@@ -8,13 +8,13 @@
 {% endblock %}
 
 {% block body %}
-    <table>
+    <table class="ui celled table">
         <tr>
-            <th>{{ _('User:') }}</th>
+            <td><b>{{ _('User:') }}</b></td>
             <td>{{ link_user(object.user) }}</td>
         </tr>
         <tr>
-            <th>{{ _('Organization:') }}</th>
+            <td><b>{{ _('Organization:') }}</b></td>
             <td>
                 {% with org=object.organization %}
                     <a href="{{ org.get_absolute_url() }}">{{ org.name }}</a>
@@ -22,14 +22,14 @@
             </td>
         </tr>
         <tr>
-            <th>{{ _('Time:') }}</th>
+                <td><b>{{ _('Time:') }}</b></td>
             <td>{{ object.time|date(_("N j, Y, g:i a")) }}</td>
         </tr>
         <tr>
-            <th colspan="2">{{ _('Reason:') }}</th>
+                <td colspan="2" style="border-bottom: none;"><b>{{ _('Reason:') }}</b></td>
         </tr>
         <tr>
-            <td colspan="2" style="padding-left: 2em">{{ object.reason }}</td>
+            <td colspan="2" style="padding-left: 2em; border-top: none">{{ object.reason }}</td>
         </tr>
     </table>
 {% endblock %}
