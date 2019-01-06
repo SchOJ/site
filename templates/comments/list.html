@@ -105,7 +105,7 @@
           <p class="no-comments-message">{{ _('There are no comments at the moment.') }}</p>
         {% endif %}
         {% if request.user.is_authenticated and comment_form and not comment_lock %}
-              <div>
+              <div id="divPostComment">
                   {% block comment_submit_title %}
                       <h3>{{ _('New comment') }}</h3>
                       <div class="ui divider"></div>
