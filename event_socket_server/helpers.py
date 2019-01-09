@@ -1,6 +1,5 @@
 import codecs
 import struct
-import sys
 import zlib
 
 from .handler import Handler
@@ -22,7 +21,6 @@ class SizedPacketHandler(Handler):
 
     def _recv_data(self, data):
         # TODO: FUCK!!!
-        sys.stderr.write(str(data))
         self._buffer = self._buffer + data
         while len(self._buffer) >= self._packetlen if self._packetlen else len(self._buffer) >= size_pack.size:
             if self._packetlen:
@@ -49,7 +47,6 @@ class ZlibPacketHandler(SizedPacketHandler):
 
     def _packet(self, data):
         try:
-            sys.stderr.write(codecs.decode(data, 'zlib').decode())
             self.packet(codecs.decode(data, 'zlib').decode())
         except zlib.error as e:
             self.malformed_packet(e)

@@ -6,6 +6,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.http import HttpResponsePermanentRedirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from social_django.urls import urlpatterns as social_auth_patterns
 
 from judge.feed import CommentFeed, AtomCommentFeed, BlogFeed, AtomBlogFeed, ProblemFeed, AtomProblemFeed
 from judge.forms import CustomAuthenticationForm
@@ -100,7 +101,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^accounts/', include(register_patterns)),
-
+    url(r'^', include((social_auth_patterns, 'social'), 'social')),
     url(r'^problems/$', problem.ProblemList.as_view(), name='problem_list'),
     url(r'^problems/random/$', problem.RandomProblem.as_view(), name='problem_random'),
 
