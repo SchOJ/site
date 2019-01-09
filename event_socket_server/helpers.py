@@ -1,4 +1,6 @@
+import codecs
 import struct
+import sys
 import zlib
 
 from .handler import Handler
@@ -9,7 +11,7 @@ size_pack = struct.Struct('!I')
 class SizedPacketHandler(Handler):
     def __init__(self, server, socket):
         super(SizedPacketHandler, self).__init__(server, socket)
-        self._buffer = ''
+        self._buffer = b''
         self._packetlen = 0
 
     def _packet(self, data):
@@ -20,7 +22,8 @@ class SizedPacketHandler(Handler):
 
     def _recv_data(self, data):
         # TODO: FUCK!!!
-        self._buffer = self._buffer + data.decode("utf-8", "ignore")
+        sys.stderr.write(str(data))
+        self._buffer = self._buffer + data
         while len(self._buffer) >= self._packetlen if self._packetlen else len(self._buffer) >= size_pack.size:
             if self._packetlen:
                 data = self._buffer[:self._packetlen]
@@ -30,7 +33,7 @@ class SizedPacketHandler(Handler):
             else:
                 data = self._buffer[:size_pack.size]
                 self._buffer = self._buffer[size_pack.size:]
-                self._packetlen = size_pack.unpack(data.encode())[0]
+                self._packetlen = size_pack.unpack(data)[0]
 
     def send(self, data, callback=None):
         data = self._format_send(data)
@@ -39,14 +42,15 @@ class SizedPacketHandler(Handler):
 
 class ZlibPacketHandler(SizedPacketHandler):
     def _format_send(self, data):
-        return data.encode('zlib')
+        return codecs.encode(data.encode(), 'zlib')
 
     def packet(self, data):
         raise NotImplementedError()
 
     def _packet(self, data):
         try:
-            self.packet(data.decode('zlib'))
+            sys.stderr.write(codecs.decode(data, 'zlib').decode())
+            self.packet(codecs.decode(data, 'zlib').decode())
         except zlib.error as e:
             self.malformed_packet(e)
 

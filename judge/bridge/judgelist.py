@@ -40,7 +40,7 @@ class JudgeList(object):
                             return
                         self.queue.remove(node)
                         break
-                node = node.__next__
+                node = node.next
 
     def register(self, judge):
         with self.lock:
