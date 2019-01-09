@@ -1,3 +1,4 @@
+import codecs
 import ctypes
 import socket
 import struct
@@ -16,14 +17,14 @@ def open_connection():
 
 
 def zlibify(data):
-    data = data.encode('zlib')
+    data = codecs.encode(data.encode(), 'zlib')
     return size_pack.pack(len(data)) + data
 
 
 def dezlibify(data, skip_head=True):
     if skip_head:
         data = data[size_pack.size:]
-    return data.decode('zlib')
+    return codecs.decode(data, 'zlib')
 
 
 def random(length):
