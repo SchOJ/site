@@ -27,7 +27,7 @@ class ProblemType(models.Model):
     name = models.CharField(max_length=20, verbose_name=_('problem category ID'), unique=True)
     full_name = models.CharField(max_length=100, verbose_name=_('problem category name'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.full_name
 
     class Meta:
@@ -40,7 +40,7 @@ class ProblemGroup(models.Model):
     name = models.CharField(max_length=20, verbose_name=_('problem group ID'), unique=True)
     full_name = models.CharField(max_length=100, verbose_name=_('problem group name'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.full_name
 
     class Meta:
@@ -59,7 +59,7 @@ class License(models.Model):
     icon = models.CharField(max_length=256, blank=True, verbose_name=_('icon'), help_text=_('URL to the icon'))
     text = models.TextField(verbose_name=_('license text'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -196,7 +196,7 @@ class Problem(models.Model):
         from judge.models import ContestProblem
         return ContestProblem.objects.filter(problem_id=self.id, contest__users__id=current).exists()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -366,7 +366,7 @@ class Solution(models.Model):
         else:
             return reverse('problem_editorial', args=[problem.code])
 
-    def __unicode__(self):
+    def __str__(self):
         return _('Editorial for %s') % self.problem.name
 
     class Meta:

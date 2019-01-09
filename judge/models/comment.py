@@ -139,7 +139,7 @@ class Comment(MPTTModel):
     def get_absolute_url(self):
         return '%s#comment-%d' % (self.link, self.id)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%(page)s by %(user)s' % {'page': self.page, 'user': self.author.user.username}
 
         # Only use this when queried with

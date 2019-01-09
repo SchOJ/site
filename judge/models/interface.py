@@ -18,7 +18,7 @@ class MiscConfig(models.Model):
     key = models.CharField(max_length=30, db_index=True)
     value = models.TextField(blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.key
 
     class Meta:
@@ -49,7 +49,7 @@ class NavigationBar(MPTTModel):
     parent = TreeForeignKey('self', verbose_name=_('parent item'), null=True, blank=True, related_name='children',
                             on_delete=CASCADE)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label
 
     @property
@@ -74,7 +74,7 @@ class BlogPost(models.Model):
     summary = models.TextField(verbose_name=_('post summary'), blank=True)
     og_image = models.CharField(verbose_name=_('openGraph image'), default='', max_length=150, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):

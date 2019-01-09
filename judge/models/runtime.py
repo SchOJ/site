@@ -76,7 +76,7 @@ class Language(models.Model):
     def short_display_name(self):
         return self.short_name or self.key
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @cached_property
@@ -126,7 +126,7 @@ class Judge(models.Model):
     problems = models.ManyToManyField('Problem', verbose_name=_('problems'), related_name='judges')
     runtimes = models.ManyToManyField(Language, verbose_name=_('judges'), related_name='judges')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def disconnect(self, force=False):

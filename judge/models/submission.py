@@ -129,7 +129,7 @@ class Submission(models.Model):
         if hasattr(self, 'contest'):
             return self.contest.participation.contest.key
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Submission %d of %s by %s' % (self.id, self.problem, self.user.user.username)
 
     def get_absolute_url(self):

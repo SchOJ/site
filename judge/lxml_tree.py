@@ -33,7 +33,7 @@ class HTMLTreeString(SafeData):
     def __str__(self):
         return mark_safe(html.tostring(self._tree).decode('utf-8'))
 
-    def __unicode__(self):
+    def __str__(self):
         return mark_safe(html.tostring(self._tree, encoding='unicode'))
 
     def __radd__(self, other):
