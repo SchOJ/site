@@ -6,6 +6,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.cache import cache
 from django.utils.functional import SimpleLazyObject, new_method_proxy
 
+from judge.utils.caniuse import CanIUse, SUPPORT
 from .models import Profile, MiscConfig, NavigationBar
 
 
@@ -110,12 +111,12 @@ def site_name(request):
 
 
 def math_setting(request):
+    caniuse = CanIUse(request.META.get('HTTP_USER_AGENT', ''))
+
     if request.user.is_authenticated:
         engine = request.user.profile.math_engine
     else:
         engine = getattr(settings, 'MATHOID_DEFAULT_TYPE', 'auto')
     if engine == 'auto':
-        engine = 'mml' if bool(getattr(settings, 'MATHOID_URL', False)) else 'jax'
-    return {'MATH_ENGINE': engine, 'REQUIRE_JAX': engine == 'jax', 'caniuse': True}
-
-# TODO: Fix CANIUSE
+        engine = 'mml' if bool(getattr(settings, 'MATHOID_URL', False)) and caniuse.mathml == SUPPORT else 'jax'
+    return {'MATH_ENGINE': engine, 'REQUIRE_JAX': engine == 'jax', 'caniuse': caniuse}
