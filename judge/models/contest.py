@@ -25,7 +25,7 @@ class ContestTag(models.Model):
     color = models.CharField(max_length=7, verbose_name=_('tag colour'), validators=[color_validator])
     description = models.TextField(verbose_name=_('tag description'), blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -149,7 +149,7 @@ class Contest(models.Model):
     def ended(self):
         return self.end_time < self._now
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -269,7 +269,7 @@ class ContestParticipation(models.Model):
 
     update_cumtime.alters_data = True
 
-    def __unicode__(self):
+    def __str__(self):
         if self.spectate:
             return gettext('%s spectating in %s') % (self.user.long_display_name, self.contest.name)
         if self.virtual:

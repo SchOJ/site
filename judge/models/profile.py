@@ -55,7 +55,7 @@ class Organization(models.Model):
         else:
             raise TypeError('Organization membership test must be Profile or primany key')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -166,7 +166,7 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse('user_page', args=(self.user.username,))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.username
 
     @classmethod
