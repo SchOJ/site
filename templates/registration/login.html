@@ -36,22 +36,22 @@
             <h4>{{ _('Or log in with...') }}</h4>
             {% if form.has_google_auth %}
                 <a href="{{ url('social:begin', "google-oauth2") }}?next={{ next }}" class="social google-icon">
-                    <i class="icon google plus square"></i>
+                    <i class="icon large google"></i>
                 </a>
             {% endif %}
             {% if form.has_facebook_auth %}
                 <a href="{{ url('social:begin', "facebook") }}?next={{ next }}" class="social facebook-icon">
-                    <i class="icon facebook square"></i>
+                    <i class="icon large facebook"></i>
                 </a>
             {% endif %}
             {% if form.has_github_auth %}
                 <a href="{{ url('social:begin', "github-secure") }}?next={{ next }}" class="social github-icon">
-                    <i class="icon github square"></i>
+                    <i class="icon large github"></i>
                 </a>
             {% endif %}
             {% if form.has_dropbox_auth %}
                 <a href="{{ url('social:begin', "dropbox-oauth2") }}?next={{ next }}" class="social dropbox-icon">
-                    <i class="icon dropbox"></i>
+                    <i class="icon large dropbox"></i>
                 </a>
             {% endif %}
         {% endif %}
