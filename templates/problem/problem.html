@@ -220,6 +220,7 @@
 
 {% block post_description_end %}
     {% if request.user.is_authenticated and not request.user.profile.mute %}
+        <div class="ui divider"></div>
         <a href="{{ url('new_problem_ticket', problem.code) }}" class="ui button clarify">
             {%- if contest_problem and contest_problem.contest.use_clarifications -%}
                 {{ _('Request clarification') }}
