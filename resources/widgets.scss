@@ -25,7 +25,9 @@ $announcement_red: #ae0000;
 
 .social {
     font-size: 1.3em;
-    float: right;
+    .icon {
+        color: black;
+    }
 }
 
 .ws-closed {
