@@ -2,7 +2,11 @@
 
 $announcement_red: #ae0000;
 
-.social i {
+.socialBtn {
+    float: right;
+}
+
+.socialBtn i {
     display: inline;
     font-size: 1.9em;
 }
