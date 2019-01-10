@@ -34,7 +34,7 @@
                             'title': 'Click to copy'
                         }).text('Copy')));
                     
-                    var $theBtn = $this.parent().parent().find('div span');
+                    var $theBtn = $this.parent().prev().find('span');
                     var curClipboard = new Clipboard(copyButton.get(0));
 
                     curClipboard.on('success', function (e) {
