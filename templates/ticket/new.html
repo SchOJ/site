@@ -22,10 +22,12 @@
         <div class="ui large icon input {% if form.title.errors %} error{% endif %}">
             <input type="text" name="title" placeholder="Title">
         </div>
-        <div class="form-errors">
-            {{ form.title.errors }}
-            {{ form.body.errors }}
-        </div>
+        {% if form.title.errors or form.body.errors %}
+          <div class="form-errors">
+              {{ form.title.errors }}
+              {{ form.body.errors }}
+          </div>
+        {% endif %}
         <div class="body-block">{{ form.body }}</div>
         <button class="ui button primary" type="submit" class="submit">{{ _('Create') }}</button>
     </form>
