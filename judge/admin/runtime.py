@@ -35,7 +35,7 @@ class LanguageAdmin(VersionAdmin):
 
     def save_model(self, request, obj, form, change):
         super(LanguageAdmin, self).save_model(request, obj, form, change)
-        obj.problem_set = Problem.objects.exclude(id__in=form.cleaned_data['problems'].values('id'))
+        obj.problem_set.set(Problem.objects.exclude(id__in=form.cleaned_data['problems'].values('id')))
 
     def get_form(self, request, obj=None, **kwargs):
         self.form.base_fields['problems'].initial = \
