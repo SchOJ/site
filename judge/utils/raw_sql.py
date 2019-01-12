@@ -64,6 +64,7 @@ def clone_to_new(old_query):
     """
     obj = straight_join_cache[type(old_query)]()
     # Copy references to everything.
+    obj.__class__ = old_query.__class__
     obj.__dict__ = old_query.__dict__.copy()
     # Clone attributes that can't use shallow copy.
     obj.alias_refcount = old_query.alias_refcount.copy()
@@ -100,6 +101,7 @@ def clone_to_new(old_query):
         del obj.base_table
     except AttributeError:
         pass
+    assert (type(obj) == type(old_query))
     return obj
 
 
