@@ -74,7 +74,7 @@ register_patterns = [
         template_name='registration/password_reset_done.html',
     ), name='password_reset_done'),
     url(r'^social/error/$', register.social_auth_error, name='social_auth_error'),
-
+    # TODO: Fix social
     url(r'^2fa/$', totp.TOTPLoginView.as_view(), name='login_2fa'),
     url(r'^2fa/enable/$', totp.TOTPEnableView.as_view(), name='enable_2fa'),
     url(r'^2fa/disable/$', totp.TOTPDisableView.as_view(), name='disable_2fa'),

@@ -27,6 +27,9 @@ class ScheduledJob(object):
         self.cancel = False
         self.dispatched = False
 
+    def __lt__(self, other):
+        return self.time < other.time
+
 
 class BaseServer(object):
     def __init__(self, addresses, client):

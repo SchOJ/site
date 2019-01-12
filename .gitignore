@@ -11,3 +11,9 @@ resources/content-description.css
 resources/ranks.css
 resources/table.css
 sass_processed
+<<<<<<< HEAD
+=======
+venv/
+*.py.bak
+bridgelog.log
+>>>>>>> c61657a5... (merge w/ last) Big Refactor
