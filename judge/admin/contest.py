@@ -7,7 +7,7 @@ from django.forms import ModelForm, ModelMultipleChoiceField
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
-from django.utils.translation import ugettext_lazy as _, ungettext
+from django.utils.translation import gettext_lazy as _, ungettext
 from reversion.admin import VersionAdmin
 
 from judge.models import Contest, ContestProblem, Profile, Rating

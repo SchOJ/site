@@ -8,7 +8,7 @@ from django.db.models import Max, CASCADE
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _, pgettext
+from django.utils.translation import gettext_lazy as _, pgettext
 from fernet_fields import EncryptedCharField
 from sortedm2m.fields import SortedManyToManyField
 

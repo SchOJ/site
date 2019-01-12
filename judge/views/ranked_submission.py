@@ -2,7 +2,7 @@ from django.db.models import IntegerField
 from django.db.models.expressions import RawSQL
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from judge.models import Submission
 from judge.utils.problems import get_result_data

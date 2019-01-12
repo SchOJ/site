@@ -8,7 +8,7 @@ from django.db.models import Max
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import gettext_lazy as _, gettext
 
 from judge.models.problem import Problem
 from judge.models.profile import Profile, Organization
@@ -271,10 +271,10 @@ class ContestParticipation(models.Model):
 
     def __unicode__(self):
         if self.spectate:
-            return ugettext('%s spectating in %s') % (self.user.long_display_name, self.contest.name)
+            return gettext('%s spectating in %s') % (self.user.long_display_name, self.contest.name)
         if self.virtual:
-            return ugettext('%s in %s, v%d') % (self.user.long_display_name, self.contest.name, self.virtual)
-        return ugettext('%s in %s') % (self.user.long_display_name, self.contest.name)
+            return gettext('%s in %s, v%d') % (self.user.long_display_name, self.contest.name, self.virtual)
+        return gettext('%s in %s') % (self.user.long_display_name, self.contest.name)
 
     class Meta:
         verbose_name = _('contest participation')

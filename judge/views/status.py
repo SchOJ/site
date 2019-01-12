@@ -4,7 +4,7 @@ from functools import partial
 
 from django.shortcuts import render
 from django.utils import six
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from judge.models import Judge, RuntimeVersion, Language
 
