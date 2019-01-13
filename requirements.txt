@@ -6,7 +6,7 @@ django-registration-redux
 django-reversion
 django-social-share
 django-sortedm2m
--e git://github.com/SchOJ/django-impersonate-215#egg=django-impersonate
+django-impersonate
 django-jet
 lxml
 Pygments
