@@ -21,12 +21,9 @@ from judge.views.register import RegistrationView, ActivationView
 from judge.views.select2 import UserSelect2View, OrganizationSelect2View, ProblemSelect2View, CommentSelect2View, \
     ContestSelect2View, UserSearchSelect2View, ContestUserSearchSelect2View, TicketUserSelect2View, AssigneeSelect2View
 
-admin.autodiscover()
+#admin.autodiscover()
 
 register_patterns = [
-    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
-    url(r'^admin/', admin.site.urls),
     url(r'^activate/complete/$',
         TitledTemplateView.as_view(template_name='registration/activation_complete.html',
                                    title='Activation Successful!'),
@@ -98,6 +95,8 @@ def paged_list_view(view, name):
 urlpatterns = [
     url(r'^$', blog.PostList.as_view(template_name='home.html', title=_('Home')), kwargs={'page': 1}, name='home'),
     url(r'^500/$', exception),
+    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^admin/', admin.site.urls),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^accounts/', include(register_patterns)),
@@ -105,29 +104,29 @@ urlpatterns = [
     url(r'^problems/$', problem.ProblemList.as_view(), name='problem_list'),
     url(r'^problems/random/$', problem.RandomProblem.as_view(), name='problem_random'),
 
-    url(r'^problem/(?P<problem>[^/]+)', include([
+    url(r'^problem/(?P<problem>[^/]+)/', include([
         url(r'^$', problem.ProblemDetail.as_view(), name='problem_detail'),
-        url(r'^/editorial$', problem.ProblemSolution.as_view(), name='problem_editorial'),
-        url(r'^/raw$', problem.ProblemRaw.as_view(), name='problem_raw'),
-        url(r'^/pdf$', problem.ProblemPdfView.as_view(), name='problem_pdf'),
-        url(r'^/pdf/(?P<language>[a-z-]+)$', problem.ProblemPdfView.as_view(), name='problem_pdf'),
-        url(r'^/clone', problem.clone_problem, name='problem_clone'),
-        url(r'^/submit$', problem.problem_submit, name='problem_submit'),
-        url(r'^/resubmit/(?P<submission>\d+)$', problem.problem_submit, name='problem_submit'),
+        url(r'^editorial$', problem.ProblemSolution.as_view(), name='problem_editorial'),
+        url(r'^raw$', problem.ProblemRaw.as_view(), name='problem_raw'),
+        url(r'^pdf$', problem.ProblemPdfView.as_view(), name='problem_pdf'),
+        url(r'^pdf/(?P<language>[a-z-]+)$', problem.ProblemPdfView.as_view(), name='problem_pdf'),
+        url(r'^clone', problem.clone_problem, name='problem_clone'),
+        url(r'^submit$', problem.problem_submit, name='problem_submit'),
+        url(r'^resubmit/(?P<submission>\d+)$', problem.problem_submit, name='problem_submit'),
 
-        url(r'^/rank/', paged_list_view(ranked_submission.RankedSubmissions, 'ranked_submissions')),
-        url(r'^/submissions/', paged_list_view(submission.ProblemSubmissions, 'chronological_submissions')),
-        url(r'^/submissions/(?P<user>\w+)/', paged_list_view(submission.UserProblemSubmissions, 'user_submissions')),
+        url(r'^rank/', paged_list_view(ranked_submission.RankedSubmissions, 'ranked_submissions')),
+        url(r'^submissions/', paged_list_view(submission.ProblemSubmissions, 'chronological_submissions')),
+        url(r'^submissions/(?P<user>\w+)/', paged_list_view(submission.UserProblemSubmissions, 'user_submissions')),
 
-        url(r'^/$', lambda _, problem: HttpResponsePermanentRedirect(reverse('problem_detail', args=[problem]))),
+        url(r'^$', lambda _, problem: HttpResponsePermanentRedirect(reverse('problem_detail', args=[problem]))),
 
-        url(r'^/test_data$', ProblemDataView.as_view(), name='problem_data'),
-        url(r'^/test_data/init$', problem_init_view, name='problem_data_init'),
-        url(r'^/test_data/diff$', ProblemSubmissionDiff.as_view(), name='problem_submission_diff'),
-        url(r'^/data/(?P<path>.+)$', problem_data_file, name='problem_data_file'),
+        url(r'^test_data$', ProblemDataView.as_view(), name='problem_data'),
+        url(r'^test_data/init$', problem_init_view, name='problem_data_init'),
+        url(r'^test_data/diff$', ProblemSubmissionDiff.as_view(), name='problem_submission_diff'),
+        url(r'^data/(?P<path>.+)$', problem_data_file, name='problem_data_file'),
 
-        url(r'^/tickets$', ticket.ProblemTicketListView.as_view(), name='problem_ticket_list'),
-        url(r'^/tickets/new$', ticket.NewProblemTicketView.as_view(), name='new_problem_ticket'),
+        url(r'^tickets$', ticket.ProblemTicketListView.as_view(), name='problem_ticket_list'),
+        url(r'^tickets/new$', ticket.NewProblemTicketView.as_view(), name='new_problem_ticket'),
     ])),
 
     url(r'^submissions/', paged_list_view(submission.AllSubmissions, 'all_submissions')),
@@ -136,10 +135,10 @@ urlpatterns = [
     url(r'^src/(?P<submission>\d+)$', submission.SubmissionSource.as_view(), name='submission_source'),
     url(r'^src/(?P<submission>\d+)/raw$', submission.SubmissionSourceRaw.as_view(), name='submission_source_raw'),
 
-    url(r'^submission/(?P<submission>\d+)', include([
+    url(r'^submission/(?P<submission>\d+)/', include([
         url(r'^$', submission.SubmissionStatus.as_view(), name='submission_status'),
-        url(r'^/abort$', submission.abort_submission, name='submission_abort'),
-        url(r'^/html$', submission.single_submission),
+        url(r'^abort$', submission.abort_submission, name='submission_abort'),
+        url(r'^html$', submission.single_submission),
     ])),
 
     url(r'^users/', include([
@@ -151,16 +150,16 @@ urlpatterns = [
 
     url(r'^user$', user.UserAboutPage.as_view(), name='user_page'),
     url(r'^edit/profile/$', user.edit_profile, name='user_edit_profile'),
-    url(r'^user/(?P<user>\w+)', include([
+    url(r'^user/(?P<user>\w+)/', include([
         url(r'^$', user.UserAboutPage.as_view(), name='user_page'),
-        url(r'^/solved', include([
+        url(r'^solved/', include([
             url(r'^$', user.UserProblemsPage.as_view(), name='user_problems'),
-            url(r'/ajax$', user.UserPerformancePointsAjax.as_view(), name='user_pp_ajax'),
+            url(r'ajax$', user.UserPerformancePointsAjax.as_view(), name='user_pp_ajax'),
         ])),
         url(r'^/submissions/', paged_list_view(submission.AllUserSubmissions, 'all_user_submissions_old')),
         url(r'^/submissions/', lambda _, user: HttpResponsePermanentRedirect(reverse('all_user_submissions', args=[user]))),
 
-        url(r'^/$', lambda _, user: HttpResponsePermanentRedirect(reverse('user_page', args=[user]))),
+        url(r'^$', lambda _, user: HttpResponsePermanentRedirect(reverse('user_page', args=[user]))),
     ])),
 
     url(r'^comments/upvote/$', comment.upvote_comment, name='comment_upvote'),
@@ -176,43 +175,43 @@ urlpatterns = [
 
     url(r'^contests/$', contests.ContestList.as_view(), name='contest_list'),
     url(r'^contests/(?P<year>\d+)/(?P<month>\d+)/$', contests.ContestCalendar.as_view(), name='contest_calendar'),
-    url(r'^contests/tag/(?P<name>[a-z-]+)', include([
+    url(r'^contests/tag/(?P<name>[a-z-]+)/', include([
         url(r'^$', contests.ContestTagDetail.as_view(), name='contest_tag'),
-        url(r'^/ajax$', contests.ContestTagDetailAjax.as_view(), name='contest_tag_ajax'),
+        url(r'^ajax$', contests.ContestTagDetailAjax.as_view(), name='contest_tag_ajax'),
     ])),
 
-    url(r'^contest/(?P<contest>\w+)', include([
+    url(r'^contest/(?P<contest>\w+)/', include([
         url(r'^$', contests.ContestDetail.as_view(), name='contest_view'),
-        url(r'^/ranking/$', contests.contest_ranking, name='contest_ranking'),
-        url(r'^/ranking/ajax$', contests.contest_ranking_ajax, name='contest_ranking_ajax'),
-        url(r'^/join$', contests.ContestJoin.as_view(), name='contest_join'),
-        url(r'^/leave$', contests.ContestLeave.as_view(), name='contest_leave'),
+        url(r'^ranking/$', contests.contest_ranking, name='contest_ranking'),
+        url(r'^ranking/ajax$', contests.contest_ranking_ajax, name='contest_ranking_ajax'),
+        url(r'^join$', contests.ContestJoin.as_view(), name='contest_join'),
+        url(r'^leave$', contests.ContestLeave.as_view(), name='contest_leave'),
 
-        url(r'^/rank/(?P<problem>\w+)/',
+        url(r'^rank/(?P<problem>\w+)/',
             paged_list_view(ranked_submission.ContestRankedSubmission, 'contest_ranked_submissions')),
 
-        url(r'^/submissions/(?P<user>\w+)/(?P<problem>\w+)/',
+        url(r'^submissions/(?P<user>\w+)/(?P<problem>\w+)/',
             paged_list_view(submission.UserContestSubmissions, 'contest_user_submissions')),
 
-        url(r'^/participations$', contests.own_participation_list, name='contest_participation_own'),
-        url(r'^/participations/(?P<user>\w+)$', contests.participation_list, name='contest_participation'),
+        url(r'^participations$', contests.own_participation_list, name='contest_participation_own'),
+        url(r'^participations/(?P<user>\w+)$', contests.participation_list, name='contest_participation'),
 
-        url(r'^/$', lambda _, contest: HttpResponsePermanentRedirect(reverse('contest_view', args=[contest]))),
+        url(r'^$', lambda _, contest: HttpResponsePermanentRedirect(reverse('contest_view', args=[contest]))),
     ])),
 
     url(r'^organizations/$', organization.OrganizationList.as_view(), name='organization_list'),
-    url(r'^organization/(?P<pk>\d+)-(?P<slug>[\w-]*)', include([
+    url(r'^organization/(?P<pk>\d+)-(?P<slug>[\w-]*)/', include([
         url(r'^$', organization.OrganizationHome.as_view(), name='organization_home'),
-        url(r'^/users$', organization.OrganizationUsers.as_view(), name='organization_users'),
-        url(r'^/join$', organization.JoinOrganization.as_view(), name='join_organization'),
-        url(r'^/leave$', organization.LeaveOrganization.as_view(), name='leave_organization'),
-        url(r'^/edit$', organization.EditOrganization.as_view(), name='edit_organization'),
-        url(r'^/kick$', organization.KickUserWidgetView.as_view(), name='organization_user_kick'),
+        url(r'^users$', organization.OrganizationUsers.as_view(), name='organization_users'),
+        url(r'^join$', organization.JoinOrganization.as_view(), name='join_organization'),
+        url(r'^leave$', organization.LeaveOrganization.as_view(), name='leave_organization'),
+        url(r'^edit$', organization.EditOrganization.as_view(), name='edit_organization'),
+        url(r'^kick$', organization.KickUserWidgetView.as_view(), name='organization_user_kick'),
 
-        url(r'^/request$', organization.RequestJoinOrganization.as_view(), name='request_organization'),
-        url(r'^/request/(?P<rpk>\d+)$', organization.OrganizationRequestDetail.as_view(),
+        url(r'^request$', organization.RequestJoinOrganization.as_view(), name='request_organization'),
+        url(r'^request/(?P<rpk>\d+)$', organization.OrganizationRequestDetail.as_view(),
             name='request_organization_detail'),
-        url(r'^/requests/', include([
+        url(r'^requests/', include([
             url(r'^pending$', organization.OrganizationRequestView.as_view(), name='organization_requests_pending'),
             url(r'^log$', organization.OrganizationRequestLog.as_view(), name='organization_requests_log'),
             url(r'^approved$', organization.OrganizationRequestLog.as_view(states=('A',), tab='approved'),
@@ -221,7 +220,7 @@ urlpatterns = [
                 name='organization_requests_rejected'),
         ])),
 
-        url(r'^/$', lambda _, pk, slug: HttpResponsePermanentRedirect(reverse('organization_home', args=[pk, slug]))),
+        url(r'^$', lambda _, pk, slug: HttpResponsePermanentRedirect(reverse('organization_home', args=[pk, slug]))),
     ])),
 
     url(r'^runtimes/$', language.LanguageList.as_view(), name='runtime_list'),
@@ -299,11 +298,11 @@ urlpatterns = [
         url(r'^ajax$', ticket.TicketListDataAjax.as_view(), name='ticket_ajax'),
     ])),
 
-    url(r'^ticket/(?P<pk>\d+)', include([
+    url(r'^ticket/(?P<pk>\d+)/', include([
         url(r'^$', ticket.TicketView.as_view(), name='ticket'),
-        url(r'^/open$', ticket.TicketStatusChangeView.as_view(open=True), name='ticket_open'),
-        url(r'^/close$', ticket.TicketStatusChangeView.as_view(open=False), name='ticket_close'),
-        url(r'^/notes$', ticket.TicketNotesEditView.as_view(), name='ticket_notes'),
+        url(r'^open$', ticket.TicketStatusChangeView.as_view(open=True), name='ticket_open'),
+        url(r'^close$', ticket.TicketStatusChangeView.as_view(open=False), name='ticket_close'),
+        url(r'^notes$', ticket.TicketNotesEditView.as_view(), name='ticket_notes'),
     ])),
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': {
