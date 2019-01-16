@@ -1,13 +1,13 @@
 Django
 django_compressor
 django-mptt
--e git://github.com/DMOJ/django-pagedown.git#egg=django-pagedown
+django-pagedown
 django-registration-redux
 django-reversion
 django-social-share
 django-sortedm2m
 django-impersonate
-django-jet
+-e git://github.com/SchOJ/django-jet.git#egg=django-jet
 lxml
 Pygments
 mistune
