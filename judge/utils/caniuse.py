@@ -4,7 +4,7 @@ from contextlib import closing
 
 from ua_parser import user_agent_parser
 
-with closing(urllib2.urlopen('https://raw.githubusercontent.com/Fyrd/caniuse/master/data.json')) as f:
+with closing(urllib2.urlopen('https://cdn.jsdelivr.net/npm/caniuse@0.1.3/data/data.json')) as f:
     _SUPPORT_DATA = json.load(f)['data']
 
 SUPPORT = 'y'
