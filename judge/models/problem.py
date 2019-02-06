@@ -119,7 +119,7 @@ class Problem(models.Model):
     date = models.DateTimeField(verbose_name=_('date of publishing'), null=True, blank=True, db_index=True,
                                 help_text=_("Doesn't have magic ability to auto-publish due to backward compatibility"))
     banned_users = models.ManyToManyField(Profile, verbose_name=_('personae non gratae'), blank=True,
-                                          help_text=_('Bans the selected users from submitting to this problem'))
+                                          help_text=_('Bans the selected users from submitting to this problem.'))
     license = models.ForeignKey(License, null=True, blank=True, on_delete=models.SET_NULL)
     og_image = models.CharField(verbose_name=_('OpenGraph image'), max_length=150, blank=True)
     summary = models.TextField(blank=True, verbose_name=_('problem summary'),
@@ -256,8 +256,9 @@ class Problem(models.Model):
     update_stats.alters_data = True
 
     def _get_limits(self, key):
+        global_limit = getattr(self, key)
         limits = {limit['language_id']: (limit['language__name'], limit[key])
-                  for limit in self.language_limits.values('language_id', 'language__name', key)}
+                  for limit in self.language_limits.values('language_id', 'language__name', key) if limit[key] != global_limit}
         limit_ids = set(limits.keys())
         common = []
 
