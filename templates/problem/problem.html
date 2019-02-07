@@ -188,7 +188,7 @@
             <div class="toggle open unselectable">
                 <i class="icon chevron down"></i>{{ _('Allowed languages') }}
             </div>
-            <div class="toggled">
+            <div style="margin-bottom:-1em" class="toggled">
                 {% with usable=problem.usable_common_names, langs=problem.languages_list() %}
                     {% for lang in langs %}
                         {%- if lang in usable -%}
@@ -245,6 +245,7 @@
 
 {% block post_description_end %}
     {% if request.user.is_authenticated and not request.profile.mute %}
+        <div class="ui divider"></div>
         <a href="{{ url('new_problem_ticket', problem.code) }}" class="button clarify">
         {%- if contest_problem and contest_problem.contest.use_clarifications and request.profile.current_contest.live -%}
             {{ _('Request clarification') }}
