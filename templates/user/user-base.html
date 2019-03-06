@@ -40,15 +40,16 @@
                 </div>
                 <br>
 
-                <div><b>{{ _('%(count)d problems solved', count=user.problem_count) }}</b></div>
-
+            <div><b>{{ _('%(count)d problems solved', count=user.problem_count) }}</b></div>
+            {% if not user.is_unlisted %}
                 <div><b class="semibold">{{ _('Rank by points:') }}</b> #{{ rank }}</div>
-                <div>
-                    <b class="semibold">{{ _('Total points:') }}</b>
-                    <span title="{{ user.performance_points|floatformat(2) }}">
-                        {{ user.performance_points|floatformat(0) }}
-                    </span>
-                </div>
+            {% endif %}
+            <div>
+                <b class="semibold">{{ _('Total points:') }}</b>
+                <span title="{{ user.performance_points|floatformat(2) }}">
+                    {{ user.performance_points|floatformat(0) }}
+                </span>
+            </div>
 
                 <br>
                 <div>
@@ -58,7 +59,9 @@
                 {% if ratings %}
                 <br>
                 <div><b>{{ ratings|length }} contests written</b></div>
-                <div><b class="semibold">{{ _('Rank by rating:') }}</b> #{{ rating_rank }}</div>
+                {% if not user.is_unlisted %}
+                    <div><b class="semibold">{{ _('Rank by rating:') }}</b> #{{ rating_rank }}</div>
+                {% endif %}
                 <div><b class="semibold">{{ _('Rating:') }}</b> {{ rating_number(rating) }}</div>
                 <div><b class="semibold">{{ _('Volatility:') }}</b> {{ rating.volatility }}</div>
                 <div><b class="semibold">{{ _('Min. rating:') }}</b> {{ rating_number(min_rating) }}</div>
@@ -70,5 +73,4 @@
             <div class="user-content">{% block user_content %}{% endblock %}</div>
         </div>
     </div>
-</div>
 {% endblock %}

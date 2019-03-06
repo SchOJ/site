@@ -1,29 +1,30 @@
 {% extends "common-content.html" %}
 {% block js_media %}
-{% if dynamic_update and last_msg %}
-<script type="text/javascript">
-    {% if request.in_contest %}
-    window.current_contest = '{{request.participation.contest.key}}';
-    {% else %}
-    window.current_contest = null;
-    {% endif %}
-    {% if dynamic_user_id %}
-    window.dynamic_user_id = {{ dynamic_user_id }};
-    {% else %}
-    window.dynamic_user_id = null;
-    {% endif %}
-    {% if dynamic_problem_id %}
-    window.dynamic_problem_id = {{ dynamic_problem_id }};
-    {% else %}
-    window.dynamic_problem_id = null;
-    {% endif %}
-    {% if show_problem %}
-    window.show_problem = 1;
-    {% else %}
-    window.show_problem = 0;
-    {% endif %}
-</script>
-{% endif %}
+    <script type="text/javascript">
+        {% if dynamic_update and last_msg %}
+            {% if request.in_contest %}
+                window.current_contest = '{{request.participation.contest.key}}';
+            {% else %}
+                window.current_contest = null;
+            {% endif %}
+            {% if dynamic_user_id %}
+                window.dynamic_user_id = {{dynamic_user_id}};
+            {% else %}
+                window.dynamic_user_id = null;
+            {% endif %}
+            {% if dynamic_problem_id %}
+                window.dynamic_problem_id = {{dynamic_problem_id}};
+            {% else %}
+                window.dynamic_problem_id = null;
+            {% endif %}
+            {% if show_problem %}
+                window.show_problem = 1;
+            {% else %}
+                window.show_problem = 0;
+            {% endif %}
+        {% endif %}
+        window.results_json = {{ results_json }};
+    </script>
 
 {% compress js %}
 <script type="text/javascript" src="{{ static('event.js') }}"></script>
@@ -66,83 +67,84 @@
             .css({ 'visibility': 'visible' });
     });
 
-    // Draw the statistics graph.
-    function stats_graph(raw_data) {
-        var colors = {
-            TLE: '#a3bcbd',
-            AC: '#00a92a',
-            WA: '#ed4420',
-            CE: '#42586d',
-            ERR: '#ffa71c',
-        };
-
-        var ctx = $('#status-graph').find('canvas')[0].getContext('2d');
-        var font = $('body').css('font-family');
-        new Chart(ctx).Pie(raw_data.categories.map(function (entry) {
-            return {
-                color: colors[entry.code],
-                label: entry.name,
-                value: entry.count,
-            };
-        }), {
-                animation: false,
-                scaleFontFamily: font,
-                tooltipFontFamily: font,
-                tooltipTitleFontFamily: font,
+            $(function () {
+                stats_graph(window.results_json);
             });
 
-        $('#total-submission-count').text(raw_data.total);
-    }
+            function load_dynamic_update(last_msg) {
+                var _collect = function (e) {
+                    return e.value;
+                };
+                var language_filter = $.map($('select#language option[selected]'), _collect);
+                var status_filter = $.map($('select#status option[selected]'), _collect);
 
-    $(function () {
-        stats_graph({{ results_json }});
-            });
+                var table = $('#submissions-table');
+                var statistics = $("#statistics-table");
+                var doing_ajax = false;
+                var first = parseInt(table.find('tr:first-child').attr('id'));
 
-    function load_dynamic_update(last_msg) {
-        var _collect = function (e) {
-            return e.value;
-        };
-        var language_filter = $.map($('select#language option[selected]'), _collect);
-        var status_filter = $.map($('select#status option[selected]'), _collect);
+                var update_submission = function (message, force) {
+                    if (language_filter.length && 'language' in message &&
+                        language_filter.indexOf(message.language) == -1)
+                        return;
+                    if (status_filter.length && 'status' in message &&
+                        status_filter.indexOf(message.status) == -1)
+                        return;
 
-        var table = $('#submissions-table');
-        var statistics = $("#statistics-table");
-        var doing_ajax = false;
-        var first = parseInt(table.find('tr:first-child').attr('id'));
+                    var id = message.id;
+                    var row = table.find('tr#' + id);
+                    if (row.length < 1) {
+                        if (id < first)
+                            return;
+                        first = id;
+                        row = $('<tr>', {id: id}).hide().prependTo(table);
+                        if (table.find('tr').length >= {{ paginator.per_page }})
+                            table.find('tr:last-child').hide('slow', function () {
+                                $(this).remove();
+                            });
+                    }
+                    if (force || !doing_ajax) {
+                        if (!force) doing_ajax = true;
+                        $.ajax({
+                            url: '{{ url('submission_single_query') }}',
+                            data: {id: id, show_problem: show_problem}
+                        }).done(function (data) {
+                            var was_shown = row.is(':visible');
+                            row.html(data);
+                            register_time(row.find('.time-with-rel'));
+                            if (!was_shown) {
+                                row.show('slow');
+                                // Hack for Chrome
+                                $('#submissions-table').hide().show(0);
+                            }
+                            if (!force)
+                                setTimeout(function () {
+                                    doing_ajax = false;
+                                }, 1000);
+                        }).fail(function () {
+                            console.log('Failed to update submission: ' + id);
+                            if (!force) doing_ajax = false;
+                        });
+                    }
+                };
 
-        var update_submission = function (message, force) {
-            if (language_filter.length && 'language' in message &&
-                language_filter.indexOf(message.language) == -1)
-                return;
-            if (status_filter.length && 'status' in message &&
-                status_filter.indexOf(message.status) == -1)
-                return;
+                var stats_outdated = false;
+                var last_stat_update = Date.now();
+                var stats_update_interval = {{ stats_update_interval|default(0) * 1000 }};
 
-            var id = message.id;
-            var row = table.find('tr#' + id);
-            if (row.length < 1) {
-                if (id < first)
-                    return;
-                first = id;
-                row = $('<tr>', { id: id }).hide().prependTo(table);
-                if (table.find('tr').length >= {{ paginator.per_page }})
-            table.find('tr:last-child').hide('slow', function () {
-                $(this).remove();
-            });
-        }
-        if (force || !doing_ajax) {
-            if (!force) doing_ajax = true;
-            $.ajax({
-                url: '{{ url('submission_single_query') }}',
-                data: { id: id, show_problem: show_problem }
-            }).done(function (data) {
-                var was_shown = row.is(':visible');
-                row.html(data);
-                register_time(row.find('.time-with-rel'));
-                if (!was_shown) {
-                    row.show('slow');
-                    // Hack for Chrome
-                    $('#submissions-table').hide().show(0);
+                function update_stats() {
+                    if (Date.now() - last_stat_update < stats_update_interval)
+                        return;
+                    $.ajax({
+                        url: '?results'
+                    }).done(function (data) {
+                        last_stat_update = Date.now();
+                        stats_graph(data);
+                    }).fail(function () {
+                        console.log('Failed to update statistics table!' + id);
+                    }).always(function () {
+                        stats_outdated = false;
+                    });
                 }
                 if (!force)
                     setTimeout(function () {
