@@ -24,3 +24,8 @@ requests
 django-fernet-fields
 pyotp
 qrcode[pil]
+pymysql
+reversion
+mysqlclient
+django_select2
+websocket-client
